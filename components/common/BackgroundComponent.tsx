@@ -14,10 +14,10 @@ export const BackgroundComponent = ({noInRow = 12, img}: Props) => {
 
     return (
         <View style={styles.mainComponent}>
-            {[...Array(rows).keys()].map(() =>
-                <View style={styles.row}>
-                    {[...Array(noInRow).keys()].map(() => {
-                        return (<Image style={[styles.image]} source={img}/>)
+            {[...Array(rows).keys()].map(r =>
+                <View key={'bgRow' + r} style={styles.row}>
+                    {[...Array(noInRow).keys()].map(c => {
+                        return (<Image key={'bgCol' + c} style={[styles.image]} source={img}/>)
                     })}
                 </View>
             )}

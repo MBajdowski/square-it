@@ -60,6 +60,7 @@ export const MenuPage = ({navigation}: Props) => {
                     navigation.navigate('GridPage');
                 }}/>}
                 <ButtonElement text='How to play' onPress={() => {
+                    navigation.navigate('BasicInstructionPage');
                 }}/>
             </View>
         </View>
