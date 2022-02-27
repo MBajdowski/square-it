@@ -24,8 +24,7 @@ export default function App() {
                     <Stack.Screen
                         name="MenuPage"
                         component={MenuPage}
-                        options={{headerShown: false}}
-                    />
+                        options={{headerShown: false}}/>
                     <Stack.Screen
                         name="GridPage"
                         component={GridPage}

@@ -36,7 +36,9 @@ export const GridElement = ({grid, handleGridPress, newElement}: GridProps) => {
         }
 
         let points = elementToUpdate.type === GridElementType.VALUE ? elementToUpdate.value : 0;
+        let noOfComboMerges = 0;
         while (hasPair(newGrid, elementToUpdate)) {
+            noOfComboMerges++;
             let pairElements: GridElementState[] = getPairs(newGrid, elementToUpdate);
 
             if (elementToUpdate.type === GridElementType.VALUE) {
@@ -46,8 +48,6 @@ export const GridElement = ({grid, handleGridPress, newElement}: GridProps) => {
             }
             elementToUpdate.value = elementToUpdate.value * 2;
 
-            //TODO: Zastanowić się ile punktów dostaniesz za kombo połączeń i za 1 połączenie
-
             pairElements.forEach(pair => {
                 pair.type = GridElementType.EMPTY;
                 pair.bonus = false;
@@ -55,8 +55,15 @@ export const GridElement = ({grid, handleGridPress, newElement}: GridProps) => {
             })
         }
 
+        //Bonus za kombo połączeń
+        if (elementToUpdate.type === GridElementType.VALUE && noOfComboMerges > 1) {
+            points += elementToUpdate.value * noOfComboMerges / 2;
+        }
+
         if (elementToUpdate.type === GridElementType.BLOCKED && elementToUpdate.value === 4) {
-            //TODO: Bonus za czyszczenie?
+            //Bonus za czyszczenie czarnych
+            points += 16;
+
             elementToUpdate.type = GridElementType.EMPTY;
             elementToUpdate.bonus = false;
             elementToUpdate.value = 0;

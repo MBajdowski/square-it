@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     },
 
     bonusBorder: {
-        borderColor: "#991730"
+        borderColor: "#da9100"
     },
 
     emptyContainer: {

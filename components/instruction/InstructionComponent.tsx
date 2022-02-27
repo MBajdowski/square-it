@@ -23,14 +23,12 @@ export const InstructionComponent = ({text, images}: Props) => {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1,
-
-        padding: vw(5),
+        padding: vw(3),
         paddingBottom: 0,
         display: "flex"
     },
     text: {
-        fontSize: vw(4),
+        fontSize: vw(3.6),
         fontWeight: "bold"
     },
     imageContainer: {
@@ -40,13 +38,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-evenly",
 
-        padding: vw(2)
+        marginTop: vw(2)
     },
     image: {
         flex: 1,
         resizeMode: "contain",
-        height: undefined,
-        width: undefined,
-        margin: vw(2)
+        height: vw(31),
+        borderRadius: vw(5)
     }
 });
