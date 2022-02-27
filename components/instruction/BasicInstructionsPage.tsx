@@ -33,23 +33,23 @@ export const BasicInstructionsPage = ({navigation}: Props) => {
                         images={[require("../../assets/instruction/_one.png"), require("../../assets/instruction/two.png")]}
                     />
                     <InstructionComponent
-                        text={'Grey tiles will block space on grid'}
-                        images={[require("../../assets/instruction/_grey.png")]}
+                        text={'Grey tiles will block space on grid. Two gray tiles will merge into black tile'}
+                        images={[require("../../assets/instruction/_grey.png"), require("../../assets/instruction/black.png")]}
                     />
                     <InstructionComponent
-                        text={'Two gray tiles will merge into black, two black tiles will disappear. You will score additional points for clearing black tiles'}
-                        images={[require("../../assets/instruction/black.png"), require("../../assets/instruction/_greyBlack.png"), require("../../assets/instruction/blackMerged.png")]}
+                        text={'Two black tiles will disappear. You will score additional points for clearing black tiles'}
+                        images={[require("../../assets/instruction/_blackGrey.png"), require("../../assets/instruction/blackedMerged.png")]}
                     />
                     <InstructionComponent
                         text={'Use tile holder to save drawn tile for later'}
-                        images={[require("../../assets/instruction/_initHolder.png")]}
+                        images={[require("../../assets/instruction/_holder.png")]}
                     />
                     <InstructionComponent
                         text={'Use arrow to undo one step'}
-                        images={[require("../../assets/instruction/_initUndo.png")]}
+                        images={[require("../../assets/instruction/_undo.png")]}
                     />
                     <InstructionComponent
-                        text={'Plus tile can merge pair of tails'}
+                        text={'Plus tile can merge pair of tiles'}
                         images={[require("../../assets/instruction/_plus.png"), require("../../assets/instruction/plusMerged.png")]}
                     />
                     <InstructionComponent
@@ -62,11 +62,11 @@ export const BasicInstructionsPage = ({navigation}: Props) => {
                     />
                     <InstructionComponent
                         text={'Plus tile can merge grey and black tiles!'}
-                        images={[require("../../assets/instruction/_plusGreys.png"), require("../../assets/instruction/plusGreysMerged.png")]}
+                        images={[require("../../assets/instruction/_plusGrey.png"), require("../../assets/instruction/plusGreyMerged.png")]}
                     />
                     <InstructionComponent
-                        text={'Merge one or more tiles to get bonus points. Red border will indicate that you scored bonus'}
-                        images={[require("../../assets/instruction/_oneCombo.png"), require("../../assets/instruction/oneComboMerged.png")]}
+                        text={'Merge one or more tiles to get bonus points. Gold border will indicate that you scored bonus'}
+                        images={[require("../../assets/instruction/_ones.png"), require("../../assets/instruction/onesMerged.png")]}
                     />
                     <InstructionComponent
                         text={'Perform multi combo to get even more bonus points!'}

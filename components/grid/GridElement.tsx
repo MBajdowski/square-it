@@ -57,6 +57,7 @@ export const GridElement = ({grid, handleGridPress, newElement}: GridProps) => {
 
         //Bonus za kombo połączeń
         if (elementToUpdate.type === GridElementType.VALUE && noOfComboMerges > 1) {
+            elementToUpdate.bonus = true;
             points += elementToUpdate.value * noOfComboMerges / 2;
         }
 

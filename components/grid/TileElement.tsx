@@ -58,7 +58,7 @@ export const TileElement = ({element, handlePress}: Props) => {
                     {
                         lastChangedValue.type === GridElementType.JOKER &&
                         <View style={[styles.jokerContainer, styles.normalBorder]}>
-                            <PlusIcon height={vw(7)} fill={"black"}/>
+                            <PlusIcon height={vw(7)} width={vw(7)} fill={"black"}/>
                         </View>
                     }
                 </View>

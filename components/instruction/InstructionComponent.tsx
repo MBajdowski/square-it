@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: "contain",
-        height: vw(31),
+        height: vw(45),
         borderRadius: vw(5)
     }
 });
