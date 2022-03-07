@@ -5,7 +5,8 @@ import {vw} from "../../utils/dimetionsUtils";
 import {PlusIcon} from "../icons/PlusIcon";
 
 interface Props {
-    element: GridElementState,
+    element: GridElementState;
+    levelElement?: GridElementState;
     handlePress: (element: GridElementState) => void;
 }
 
@@ -14,7 +15,7 @@ const calculateHslValue = (element: GridElementState) => {
     return 'hsl(' + hslValue + ', 80%, 90%)';
 };
 
-export const TileElement = ({element, handlePress}: Props) => {
+export const TileElement = ({element, handlePress, levelElement}: Props) => {
     const [lastChangedValue, setLastChangedValue] = useState<GridElementState>({...element});
     const opacity = useRef(new Animated.Value(1));
 
@@ -38,7 +39,13 @@ export const TileElement = ({element, handlePress}: Props) => {
             <TouchableWithoutFeedback onPress={() => handlePress(lastChangedValue)}>
                 <View style={styles.middleContainer}>
                     {
-                        lastChangedValue.type === GridElementType.EMPTY &&
+                        lastChangedValue.type === GridElementType.EMPTY && levelElement &&
+                        <View style={styles.levelContainer}>
+                            <Text style={styles.levelText}>{levelElement.value}</Text>
+                        </View>
+                    }
+                    {
+                        lastChangedValue.type === GridElementType.EMPTY && !levelElement &&
                         <View style={styles.emptyContainer}/>}
                     {
                         lastChangedValue.type === GridElementType.VALUE &&
@@ -115,6 +122,21 @@ const styles = StyleSheet.create({
         flex: 1,
 
         backgroundColor: "white",
+    },
+
+    levelContainer: {
+        flex: 1,
+        display: "flex",
+        justifyContent: "center",
+
+        backgroundColor: "white",
+    },
+
+    levelText: {
+        color: "grey",
+        fontWeight: "bold",
+        fontSize: vw(7),
+        textAlign: "center"
     },
 
     blockedContainer1: {

@@ -3,7 +3,8 @@ export interface GridElementState {
     y: number;
     type: GridElementType;
     value: number;
-    bonus: boolean;
+    bonus?: boolean;
+    levelTile?: GridElementState;
 }
 
 export enum GridElementType {
@@ -14,3 +15,8 @@ export enum GridElementType {
 }
 
 export const N = 5;
+
+export interface GameLevel {
+    id: number;
+    levelGrid: GridElementState[];
+}

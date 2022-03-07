@@ -1,14 +1,15 @@
 import {TileElement} from "./TileElement";
 import {StyleSheet, View} from "react-native";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {GridElementState} from "../../utils/types";
-import {emptyElement} from "../../utils/gridElementStateUtils";
 import {vw} from "../../utils/dimetionsUtils";
-import {retrieveObject, storeObject, TileHolderElementKey} from "../../utils/asyncStorageUtils";
+import {useTileHolderElement} from "./useTileHolderElement";
+import {useTileHolderElementLevel} from "./useTileHolderElementLevel";
 
 interface HolderElementProps {
     newElement: GridElementState;
     onHolderElementChange: (holderElement: GridElementState) => void;
+    isLevelMode: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -21,26 +22,14 @@ const styles = StyleSheet.create({
     }
 });
 
-export const TileHolderElement = ({newElement, onHolderElementChange}: HolderElementProps) => {
-    const [holderElement, setHolderElement] = useState<GridElementState>(emptyElement(-1, -1));
+export const TileHolderElement = ({newElement, onHolderElementChange, isLevelMode}: HolderElementProps) => {
 
-    useEffect(() => {
-        initHolderElement()
-    }, []);
-
-    useEffect(() => {
-        storeObject(TileHolderElementKey, holderElement);
-    }, [holderElement])
-
-    const initHolderElement = async () => {
-        let elementFromStorage = await retrieveObject(TileHolderElementKey) ?? emptyElement(-1, -1);
-        setHolderElement(elementFromStorage);
-    }
-
-    const handleHolderPress = (holderElement: GridElementState) => {
-        setHolderElement(newElement);
-        onHolderElementChange(holderElement);
-    }
+    const {
+        holderElement,
+        handleHolderPress
+    } = isLevelMode ?
+        useTileHolderElementLevel({newElement, onHolderElementChange}) :
+        useTileHolderElement({newElement, onHolderElementChange})
 
     return (
         <View style={styles.elementHolderContainer}>

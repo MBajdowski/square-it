@@ -8,31 +8,36 @@ import {GridElement} from "./GridElement";
 import {TileHolderElement} from "./TileHolderElement";
 import {UndoElement} from "./UndoElement";
 import {ScoreElement} from "./ScoreElement";
+import {useGameElementLevel} from "./useGameElementLevel";
 
 interface MainGridProps {
     grid: GridElementState[];
+    levelGrid: GridElementState[];
     score: number;
     handleScoreChange: (newScore: number) => void;
     handleGridChange: (newGrid: GridElementState[]) => void;
 }
 
-export const GameElement = ({grid, score, handleGridChange, handleScoreChange}: MainGridProps) => {
+export const GameElement = ({grid, score, handleGridChange, handleScoreChange, levelGrid}: MainGridProps) => {
     const {
         handleUndoPress,
         undoAvailable,
         newElement,
         handleGridPress,
         handleHolderElementChanged
-    } = useGameElement({grid, score, handleScoreChange, handleGridChange});
+    } = levelGrid.length > 0 ?
+        useGameElementLevel({grid, score, handleScoreChange, handleGridChange}) :
+        useGameElement({grid, score, handleScoreChange, handleGridChange});
 
     return (
         <View style={styles.topContainer}>
             <View style={styles.topPaneContainer}>
-                <TileHolderElement newElement={newElement} onHolderElementChange={handleHolderElementChanged}/>
+                <TileHolderElement newElement={newElement} isLevelMode={levelGrid.length > 0}
+                                   onHolderElementChange={handleHolderElementChanged}/>
                 <ScoreElement score={score}/>
                 <UndoElement undoAvailable={undoAvailable} onUndoElementPress={handleUndoPress}/>
             </View>
-            <GridElement grid={grid} newElement={newElement} handleGridPress={handleGridPress}/>
+            <GridElement grid={grid} levelGrid={levelGrid} newElement={newElement} handleGridPress={handleGridPress}/>
             <NewTileElement newElement={newElement}/>
         </View>
     );

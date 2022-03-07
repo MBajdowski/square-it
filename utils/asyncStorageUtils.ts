@@ -10,8 +10,9 @@ export const PrevGridKey = '@prev_grid';
 export const PrevNewElementKey = '@prev_new_element';
 export const PrevScoreKey = '@prev_score';
 export const UndoAvailableKey = '@undo_available';
+export const CompletedLevelsKey = '@completed_levels';
 
-export const removeAllKeys = async () => {
+export const removeCurrentGameData = async () => {
     removeKey(GridKey);
     removeKey(TileHolderElementKey);
     removeKey(NewElementKey);

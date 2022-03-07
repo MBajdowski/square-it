@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         display: "flex"
     },
     text: {
-        fontSize: vw(3.6),
+        fontSize: vw(5),
         fontWeight: "bold"
     },
     imageContainer: {

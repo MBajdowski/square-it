@@ -7,11 +7,12 @@ import {deepGridCopy, getFinalJokerElement, getPairs, hasPair} from "../../utils
 
 interface GridProps {
     grid: GridElementState[];
+    levelGrid: GridElementState[];
     handleGridPress: (newGrid: GridElementState[], newPoints?: number) => void;
     newElement: GridElementState;
 }
 
-export const GridElement = ({grid, handleGridPress, newElement}: GridProps) => {
+export const GridElement = ({grid, levelGrid, handleGridPress, newElement}: GridProps) => {
 
     const handlePress = (element: GridElementState): void => {
         if (element.type !== GridElementType.EMPTY) {
@@ -73,6 +74,11 @@ export const GridElement = ({grid, handleGridPress, newElement}: GridProps) => {
         handleGridPress(newGrid, points);
     };
 
+    const getLevelElement = (x: number, y: number) => {
+        let levelElements = levelGrid.filter(l => l.x === x && l.y === y);
+        return levelElements ? levelElements[0] : undefined;
+    }
+
     return (
         <View style={styles.gridContainer}>
             {[...Array(N).keys()].map(n =>
@@ -80,7 +86,9 @@ export const GridElement = ({grid, handleGridPress, newElement}: GridProps) => {
                     {
                         grid.filter(e => e.y === n)
                             .map((e) => {
-                                return (<TileElement key={`${e.x}-${e.y}`} element={e} handlePress={handlePress}/>);
+                                return (<TileElement key={`${e.x}-${e.y}`} element={e}
+                                                     levelElement={getLevelElement(e.x, e.y)}
+                                                     handlePress={handlePress}/>);
                             })
                     }
                 </View>

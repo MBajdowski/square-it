@@ -6,7 +6,7 @@ import {vw} from "../../utils/dimetionsUtils";
 
 interface MyProps {
     grid: GridElementState[];
-    onModalClose: () => void;
+    onModalClose: (navigateTo: string) => void;
 }
 
 export const EndGameModal = ({grid, onModalClose}: MyProps) => {
@@ -18,9 +18,14 @@ export const EndGameModal = ({grid, onModalClose}: MyProps) => {
         }
     }, [grid]);
 
-    const handleModalClose = () => {
+    const handleModalCloseNavigateToMenu = () => {
         setIsVisible(false);
-        onModalClose();
+        onModalClose('MenuPage');
+    };
+
+    const handleModalCloseNavigateToNewGame = () => {
+        setIsVisible(false);
+        onModalClose('GridPage');
     };
 
     return (
@@ -28,13 +33,13 @@ export const EndGameModal = ({grid, onModalClose}: MyProps) => {
             animationType="fade"
             transparent={true}
             visible={isVisible}
-            onRequestClose={handleModalClose}
+            onRequestClose={handleModalCloseNavigateToMenu}
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <Text style={styles.modalText}>GAME OVER</Text>
-                    <ButtonElement text='Play Again' onPress={handleModalClose}/>
-                    <ButtonElement text='Back to menu' onPress={handleModalClose}/>
+                    <ButtonElement text='Play Again' onPress={handleModalCloseNavigateToNewGame}/>
+                    <ButtonElement text='Back to menu' onPress={handleModalCloseNavigateToMenu}/>
                 </View>
             </View>
         </Modal>

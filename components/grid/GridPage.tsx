@@ -1,89 +1,42 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {GameElement} from "./GameElement";
 import {StyleSheet, View} from "react-native";
 import {EndGameModal} from "./EndGameModal";
-import {GridElementState} from "../../utils/types";
-import {initGrid} from "../../utils/gridStateUtils";
-import {
-    CurrentScoreKey,
-    GameInProgressKey,
-    GridKey,
-    HighScoreKey,
-    removeAllKeys,
-    retrieveNumber,
-    retrieveObject,
-    storeNumber,
-    storeObject
-} from "../../utils/asyncStorageUtils";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {BackgroundComponent} from "../common/BackgroundComponent";
+import {RouteProp} from "@react-navigation/native";
+import {EndLevelModal} from "./EndLevelModal";
+import {useGridPage} from "./useGridPage";
+import {useGridPageLevel} from "./useGridPageLevel";
 
 interface Props {
-    navigation: NativeStackNavigationProp<any>
+    navigation: NativeStackNavigationProp<any>;
+    route: RouteProp<any>;
 }
 
-export const GridPage = ({navigation}: Props) => {
+export const GridPage = ({navigation, route}: Props) => {
 
-    const [gameCounter, setGameCounter] = useState<number>(0);
-    const [grid, setGrid] = useState<GridElementState[]>(initGrid);
-    const [score, setScore] = useState<number>(0);
-    const [isComponentInitiated, setIsComponentInitiated] = useState(false);
+    const levelId = route.params?.levelId;
 
-    useEffect(() => {
-        initGridAndScore();
-    }, []);
-
-    useEffect(() => {
-        if (isComponentInitiated) {
-            storeGameState(grid, score);
-        }
-    }, [grid, score, isComponentInitiated]);
-
-    const initGridAndScore = async () => {
-        let isGameInProgress = await retrieveObject(GameInProgressKey) ?? false;
-        if (isGameInProgress) {
-            let score = await retrieveObject(CurrentScoreKey);
-            let grid = await retrieveObject(GridKey);
-
-            setScore(score);
-            setGrid(grid);
-        }
-        setIsComponentInitiated(true);
-        storeObject(GameInProgressKey, true);
-    }
-
-    const storeGameState = async (grid: GridElementState[], score: number) => {
-        await storeObject(GridKey, grid);
-        await storeObject(CurrentScoreKey, score);
-    };
-
-    const handleModalClose = async () => {
-        storeObject(GameInProgressKey, false);
-        removeAllKeys();
-
-        const retrievedHighScore = await retrieveNumber(HighScoreKey);
-        if (score > retrievedHighScore) {
-            storeNumber(HighScoreKey, score);
-        }
-        setGameCounter(gameCounter + 1);
-        setGrid(initGrid)
-        setScore(0);
-        navigation.navigate('MenuPage');
-    };
-
-    const handleGridChange = (newGrid: GridElementState[]) => {
-        setGrid(newGrid);
-    }
-
-    const handleScoreChange = (newScore: number) => {
-        setScore(newScore);
-    }
+    const {
+        grid,
+        gameCounter,
+        score,
+        levelGrid,
+        handleModalClose,
+        handleScoreChange,
+        handleGridChange
+    } = levelId ?
+        useGridPageLevel({navigation, route}) :
+        useGridPage({navigation});
 
     return (
         <View style={styles.topContainer}>
             <BackgroundComponent img={require('../../assets/bg.png')}/>
             <EndGameModal grid={grid} onModalClose={handleModalClose}/>
-            <GameElement key={gameCounter} grid={grid} score={score} handleScoreChange={handleScoreChange}
+            <EndLevelModal grid={grid} levelGrid={levelGrid} onModalClose={handleModalClose}/>
+            <GameElement key={gameCounter} grid={grid} score={score} levelGrid={levelGrid}
+                         handleScoreChange={handleScoreChange}
                          handleGridChange={handleGridChange}/>
         </View>
     );

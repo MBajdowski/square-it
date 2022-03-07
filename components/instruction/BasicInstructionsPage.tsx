@@ -29,7 +29,7 @@ export const BasicInstructionsPage = ({navigation}: Props) => {
                         images={[require("../../assets/instruction/_init.png")]}
                     />
                     <InstructionComponent
-                        text={'Two the same numbers will merge'}
+                        text={'Pair of tiles will merge'}
                         images={[require("../../assets/instruction/_one.png"), require("../../assets/instruction/two.png")]}
                     />
                     <InstructionComponent

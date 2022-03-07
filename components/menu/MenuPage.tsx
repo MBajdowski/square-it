@@ -8,7 +8,7 @@ import {ButtonElement} from "../common/ButtonElement";
 import {
     GameInProgressKey,
     HighScoreKey,
-    removeAllKeys,
+    removeCurrentGameData,
     retrieveNumber,
     retrieveObject
 } from "../../utils/asyncStorageUtils";
@@ -42,7 +42,7 @@ export const MenuPage = ({navigation}: Props) => {
     }
 
     const onNewGamePress = async () => {
-        await removeAllKeys()
+        await removeCurrentGameData()
         navigation.navigate('GridPage');
     }
 
@@ -59,6 +59,9 @@ export const MenuPage = ({navigation}: Props) => {
                 {isResumeVisible && <ButtonElement text='Resume' onPress={() => {
                     navigation.navigate('GridPage');
                 }}/>}
+                <ButtonElement text='Levels' onPress={() => {
+                    navigation.navigate('LevelsPage');
+                }}/>
                 <ButtonElement text='How to play' onPress={() => {
                     navigation.navigate('BasicInstructionPage');
                 }}/>

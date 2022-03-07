@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "levelGrid": [
+      {
+        "x": 2,
+        "y": 2,
+        "value": 2,
+        "type": 2
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "levelGrid": [
+      {
+        "x": 2,
+        "y": 1,
+        "value": 4,
+        "type": 2
+      },
+      {
+        "x": 2,
+        "y": 3,
+        "value": 4,
+        "type": 2
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "value": 16,
+        "type": 2
+      },
+      {
+        "x": 3,
+        "y": 2,
+        "value": 16,
+        "type": 2
+      },
+      {
+        "x": 2,
+        "y": 2,
+        "value": 0,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "levelGrid": [
+      {
+        "x": 2,
+        "y": 2,
+        "value": 32,
+        "type": 2
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "levelGrid": [
+      {
+        "x": 2,
+        "y": 2,
+        "value": 32,
+        "type": 2
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "levelGrid": [
+      {
+        "x": 2,
+        "y": 2,
+        "value": 32,
+        "type": 2
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "levelGrid": [
+      {
+        "x": 2,
+        "y": 2,
+        "value": 32,
+        "type": 2
+      }
+    ]
+  }
+]

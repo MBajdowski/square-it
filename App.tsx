@@ -5,6 +5,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {MenuPage} from "./components/menu/MenuPage";
 import {BasicInstructionsPage} from "./components/instruction/BasicInstructionsPage";
+import {LevelsPage} from "./components/levels/LevelsPage";
 
 const styles = StyleSheet.create({
     container: {
@@ -28,6 +29,10 @@ export default function App() {
                     <Stack.Screen
                         name="GridPage"
                         component={GridPage}
+                        options={{headerShown: false}}/>
+                    <Stack.Screen
+                        name="LevelsPage"
+                        component={LevelsPage}
                         options={{headerShown: false}}/>
                     <Stack.Screen
                         name="BasicInstructionPage"
