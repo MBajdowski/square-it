@@ -1,50 +1,49 @@
-import {Animated, StyleSheet} from "react-native";
-import {vw} from "../../utils/dimetionsUtils";
-import React, {useEffect, useRef} from "react";
+import { Animated, StyleSheet } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { vw } from '../../utils/dimetionsUtils';
 
 interface Props {
-    bonus: boolean;
+  bonus: boolean;
 }
 
-export const AnimatedBonusPointsElement = ({bonus}: Props) => {
+export const AnimatedBonusPointsElement = ({ bonus }: Props) => {
+  const scaleValue = useRef(new Animated.Value(1));
+  const opacityValue = useRef(new Animated.Value(0));
 
-    const scaleValue = useRef(new Animated.Value(1));
-    const opacityValue = useRef(new Animated.Value(0));
+  useEffect(() => {
+    if (bonus) {
+      opacityValue.current = new Animated.Value(1);
+      Animated.parallel([
+        Animated.timing(scaleValue.current, {
+          toValue: 7,
+          duration: 1000,
+          useNativeDriver: false,
+        }),
+        Animated.timing(opacityValue.current, {
+          toValue: 0,
+          duration: 1000,
+          useNativeDriver: false,
+        }),
+      ]).start();
+    }
+  }, [bonus]);
 
-    useEffect(() => {
-        if (bonus) {
-            opacityValue.current = new Animated.Value(1);
-            Animated.parallel([
-                    Animated.timing(scaleValue.current, {
-                        toValue: 7,
-                        duration: 1000,
-                        useNativeDriver: false
-                    }),
-                    Animated.timing(opacityValue.current, {
-                        toValue: 0,
-                        duration: 1000,
-                        useNativeDriver: false
-                    })
-                ]
-            ).start()
-        }
-    }, [bonus]);
-
-    return (
-        <Animated.Text
-            style={[styles.highScoreText,
-                {transform: [{scale: scaleValue.current}]},
-                {opacity: opacityValue.current}]}>
-            3
-        </Animated.Text>
-    );
-}
+  return (
+    <Animated.Text
+      style={[styles.highScoreText,
+        { transform: [{ scale: scaleValue.current }] },
+        { opacity: opacityValue.current }]}
+    >
+      3
+    </Animated.Text>
+  );
+};
 
 const styles = StyleSheet.create({
-    highScoreText: {
-        flex: 1,
-        fontWeight: "bold",
-        color: "yellow",
-        padding: vw(3)
-    }
+  highScoreText: {
+    flex: 1,
+    fontWeight: 'bold',
+    color: 'yellow',
+    padding: vw(3),
+  },
 });
