@@ -7,6 +7,28 @@ import { InstructionComponent } from './InstructionComponent';
 import { BackgroundComponent } from '../common/BackgroundComponent';
 import { ButtonElement } from '../common/ButtonElement';
 import { vw } from '../../utils/dimetionsUtils';
+import * as bgImg from '../../assets/bg.png';
+import * as blackedMerged from '../../assets/instruction/blackedMerged.png';
+import * as plusTwoPairsMerged from '../../assets/instruction/plusTwoPairsMerged.png';
+import * as plusMerged from '../../assets/instruction/plusMerged.png';
+import * as black from '../../assets/instruction/black.png';
+import * as multiComboMerged from '../../assets/instruction/multiComboMerged.png';
+import * as _blackGrey from '../../assets/instruction/_blackGrey.png';
+import * as _grey from '../../assets/instruction/_grey.png';
+import * as _holder from '../../assets/instruction/_holder.png';
+import * as _init from '../../assets/instruction/_init.png';
+import * as two from '../../assets/instruction/two.png';
+import * as plusNoPairsGrey from '../../assets/instruction/plusNoPairsGrey.png';
+import * as plusGreyMerged from '../../assets/instruction/plusGreyMerged.png';
+import * as onesMerged from '../../assets/instruction/onesMerged.png';
+import * as _undo from '../../assets/instruction/_undo.png';
+import * as _plusTwoPairs from '../../assets/instruction/_plusTwoPairs.png';
+import * as _plusNoPairs from '../../assets/instruction/_plusNoPairs.png';
+import * as _plusGrey from '../../assets/instruction/_plusGrey.png';
+import * as _plus from '../../assets/instruction/_plus.png';
+import * as _ones from '../../assets/instruction/_ones.png';
+import * as _one from '../../assets/instruction/_one.png';
+import * as _multiCombo from '../../assets/instruction/_multiCombo.png';
 
 interface Props {
   navigation: NativeStackNavigationProp<any>
@@ -16,7 +38,7 @@ export const BasicInstructionsPage = ({ navigation }: Props) =>
   (
 
     <View style={styles.mainContainer}>
-      <BackgroundComponent img={require('../../assets/bg.png')} />
+      <BackgroundComponent img={bgImg} />
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>How To Play</Text>
         <ButtonElement
@@ -31,60 +53,51 @@ export const BasicInstructionsPage = ({ navigation }: Props) =>
         <ScrollView showsVerticalScrollIndicator={false}>
           <InstructionComponent
             text="Place number from the bottom on the grid"
-            images={[require('../../assets/instruction/_init.png')]}
+            images={[_init]}
           />
           <InstructionComponent
             text="Pair of tiles will merge"
-            images={[require('../../assets/instruction/_one.png'),
-              require('../../assets/instruction/two.png')]}
+            images={[_one, two]}
           />
           <InstructionComponent
             text="Grey tiles will block space on grid. Two gray tiles will merge into black tile"
-            images={[require('../../assets/instruction/_grey.png'),
-              require('../../assets/instruction/black.png')]}
+            images={[_grey, black]}
           />
           <InstructionComponent
             text="Two black tiles will disappear. You will score additional points for clearing black tiles"
-            images={[require('../../assets/instruction/_blackGrey.png'),
-              require('../../assets/instruction/blackedMerged.png')]}
+            images={[_blackGrey, blackedMerged]}
           />
           <InstructionComponent
             text="Use tile holder to save drawn tile for later"
-            images={[require('../../assets/instruction/_holder.png')]}
+            images={[_holder]}
           />
           <InstructionComponent
             text="Use arrow to undo one step"
-            images={[require('../../assets/instruction/_undo.png')]}
+            images={[_undo]}
           />
           <InstructionComponent
             text="Plus tile can merge pair of tiles"
-            images={[require('../../assets/instruction/_plus.png'),
-              require('../../assets/instruction/plusMerged.png')]}
+            images={[_plus, plusMerged]}
           />
           <InstructionComponent
             text="Plus tile will always merge bigger pair"
-            images={[require('../../assets/instruction/_plusTwoPairs.png'),
-              require('../../assets/instruction/plusTwoPairsMerged.png')]}
+            images={[_plusTwoPairs, plusTwoPairsMerged]}
           />
           <InstructionComponent
             text="Plus tile will become grey tile if no pairs will be find"
-            images={[require('../../assets/instruction/_plusNoPairs.png'),
-              require('../../assets/instruction/plusNoPairsGrey.png')]}
+            images={[_plusNoPairs, plusNoPairsGrey]}
           />
           <InstructionComponent
             text="Plus tile can merge grey and black tiles!"
-            images={[require('../../assets/instruction/_plusGrey.png'),
-              require('../../assets/instruction/plusGreyMerged.png')]}
+            images={[_plusGrey, plusGreyMerged]}
           />
           <InstructionComponent
             text="Merge one or more tiles to get bonus points. Gold border will indicate that you scored bonus"
-            images={[require('../../assets/instruction/_ones.png'),
-              require('../../assets/instruction/onesMerged.png')]}
+            images={[_ones, onesMerged]}
           />
           <InstructionComponent
             text="Perform multi combo to get even more bonus points!"
-            images={[require('../../assets/instruction/_multiCombo.png'),
-              require('../../assets/instruction/multiComboMerged.png')]}
+            images={[_multiCombo, multiComboMerged]}
           />
         </ScrollView>
       </View>

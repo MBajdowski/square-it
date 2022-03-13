@@ -46,7 +46,7 @@ export const useGridPage = ({ navigation }: Props) => {
       setGrid(retrievedGrid);
     }
     setIsComponentInitiated(true);
-    storeObject(GameInProgressKey, true);
+    await storeObject(GameInProgressKey, true);
   };
 
   const storeGameState = async (gridToSave: GridElementState[], scoreToSave: number) => {
@@ -55,12 +55,12 @@ export const useGridPage = ({ navigation }: Props) => {
   };
 
   const handleModalClose = async (navigateTo: string) => {
-    storeObject(GameInProgressKey, false);
-    removeCurrentGameData();
+    await storeObject(GameInProgressKey, false);
+    await removeCurrentGameData();
 
     const retrievedHighScore = await retrieveNumber(HighScoreKey);
     if (score > retrievedHighScore) {
-      storeNumber(HighScoreKey, score);
+      await storeNumber(HighScoreKey, score);
     }
     setGameCounter(gameCounter + 1);
     setGrid(initGrid);

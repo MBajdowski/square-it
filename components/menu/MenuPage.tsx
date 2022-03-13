@@ -13,6 +13,9 @@ import {
   retrieveObject,
 } from '../../utils/asyncStorageUtils';
 import { BackgroundComponent } from '../common/BackgroundComponent';
+import * as bgImg from '../../assets/bg.png';
+import * as titleImg from '../../assets/title.png';
+import * as logoImg from '../../assets/logo.png';
 
 interface Props {
   navigation: NativeStackNavigationProp<any>
@@ -47,10 +50,10 @@ export const MenuPage = ({ navigation }: Props) => {
 
   return (
     <View style={styles.topContainer}>
-      <BackgroundComponent img={require('../../assets/bg.png')} />
+      <BackgroundComponent img={bgImg} />
       <View style={styles.imageContainer}>
-        <Image style={styles.titleImg} source={require('../../assets/title.png')} />
-        <Image style={styles.logoImg} source={require('../../assets/logo_color_bg.png')} />
+        <Image style={styles.titleImg} source={titleImg} />
+        <Image style={styles.logoImg} source={logoImg} />
         <AnimatedTextElement text={`High Score: ${highScore}`} />
       </View>
       <View style={styles.buttonsContainer}>

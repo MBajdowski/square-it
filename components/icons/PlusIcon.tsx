@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Svg, { Path, SvgProps } from 'react-native-svg';
 
-export const PlusIcon = (props: SvgProps) =>
+export const PlusIcon = ({ fill }: SvgProps) =>
   (
     <Svg
       width={277.603}
       height={277.603}
       viewBox="0 0 73.449 73.449"
-      {...props}
+      fill={fill}
     >
       <Path
         d="M36.725 0C16.474 0 0 16.474 0 36.725S16.474 73.45 36.725 73.45 73.45 56.976 73.45 36.725 56.976 0 36.725 0zm0 5.291c17.391 0 31.434 14.042 31.434 31.434 0 17.391-14.042 31.432-31.434 31.432-17.391 0-31.432-14.04-31.432-31.432 0-17.391 14.04-31.434 31.432-31.434z"

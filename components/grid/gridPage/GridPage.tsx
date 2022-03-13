@@ -8,7 +8,7 @@ import { BackgroundComponent } from '../../common/BackgroundComponent';
 import { EndLevelModal } from '../EndLevelModal';
 import { useGridPage } from './useGridPage';
 import { useGridPageLevel } from './useGridPageLevel';
-import * as image from '../../../assets/bg.png';
+import * as bgImg from '../../../assets/bg.png';
 
 interface Props {
   navigation: NativeStackNavigationProp<any>;
@@ -32,7 +32,7 @@ export const GridPage = ({ navigation, route }: Props) => {
 
   return (
     <View style={styles.topContainer}>
-      <BackgroundComponent img={image} />
+      <BackgroundComponent img={bgImg} />
       <EndGameModal grid={grid} onModalClose={handleModalClose} />
       <EndLevelModal grid={grid} levelGrid={levelGrid} onModalClose={handleModalClose} />
       <GameElement

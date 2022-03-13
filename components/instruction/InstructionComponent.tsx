@@ -15,7 +15,7 @@ export const InstructionComponent = ({ text, images }: Props) =>
       <Text style={styles.text}>{text}</Text>
       <View style={styles.imageContainer}>
         {images.map((img, index) =>
-          <Image style={styles.image} key={`instructionImg${index}`} source={img} />)}
+          <Image style={styles.image} key={`instructionImg${index.toString()}`} source={img} />)}
       </View>
     </View>
   );

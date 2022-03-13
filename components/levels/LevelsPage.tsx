@@ -11,6 +11,7 @@ import { ButtonElement } from '../common/ButtonElement';
 import { CheckIcon } from '../icons/CheckIcon';
 import data from './levels.json';
 import { GameLevel } from '../../utils/types';
+import * as bgImg from '../../../assets/bg.png';
 
 const noInRow = 5;
 
@@ -24,7 +25,7 @@ export const LevelsPage = ({ navigation }: Props) => {
 
   return (
     <View style={styles.mainContainer}>
-      <BackgroundComponent img={require('../../assets/bg.png')} />
+      <BackgroundComponent img={bgImg} />
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Game Levels</Text>
         <ButtonElement
@@ -59,7 +60,6 @@ export const LevelsPage = ({ navigation }: Props) => {
                           <CheckIcon fill="#00aa13" />
                         </Pressable>
                       )}
-
                     </View>
                   ))}
               </View>
