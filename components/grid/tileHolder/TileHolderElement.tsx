@@ -1,8 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { TileElement } from '../TileElement';
-import { GridElementState } from '../../../utils/types';
-import { vw } from '../../../utils/dimetionsUtils';
+import { GridElementState, vw } from '../../../utils';
 import { useTileHolderElement } from './useTileHolderElement';
 import { useTileHolderElementLevel } from './useTileHolderElementLevel';
 
@@ -16,7 +15,6 @@ const styles = StyleSheet.create({
   elementHolderContainer: {
     width: vw(15),
     height: vw(15),
-    marginBottom: vw(1),
     padding: vw(0.5),
     backgroundColor: 'lightgrey',
   },

@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated, StyleSheet, Text, TouchableWithoutFeedback, View,
 } from 'react-native';
-import { GridElementState, GridElementType } from '../../utils/types';
-import { vw } from '../../utils/dimetionsUtils';
-import { PlusIcon } from '../icons/PlusIcon';
+import { GridElementState, GridElementType, vw } from '../../utils';
+import { PlusIcon } from '../icons';
 
 interface Props {
   element: GridElementState;

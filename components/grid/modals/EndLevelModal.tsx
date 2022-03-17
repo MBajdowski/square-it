@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import {
   Modal, StyleSheet, Text, View,
 } from 'react-native';
-import { GridElementState } from '../../utils/types';
-import { ButtonElement } from '../common/ButtonElement';
-import { vw } from '../../utils/dimetionsUtils';
-import { CheckIcon } from '../icons/CheckIcon';
+import { GridElementState, vw } from '../../../utils';
+import { ButtonElement } from '../../common/ButtonElement';
+import { CheckIcon } from '../../icons';
 
 interface MyProps {
   grid: GridElementState[];
   levelGrid: GridElementState[];
   onModalClose: (navigateTo: string) => void;
+  levelId: number;
 }
 
 const isElementTheSame = (element1: GridElementState, element2: GridElementState) =>
@@ -34,7 +34,7 @@ const isSubset = (superset: GridElementState[], subset: GridElementState[]) => {
   return !isElementMissing;
 };
 
-export const EndLevelModal = ({ grid, levelGrid, onModalClose }: MyProps) => {
+export const EndLevelModal = ({ grid, levelGrid, onModalClose, levelId }: MyProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export const EndLevelModal = ({ grid, levelGrid, onModalClose }: MyProps) => {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>Level completed!</Text>
+          <Text style={styles.modalText}>Level {levelId} completed!</Text>
           <View style={styles.tickContainer}>
             <CheckIcon fill="#00aa13" />
           </View>

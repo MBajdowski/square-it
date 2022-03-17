@@ -4,8 +4,6 @@ import Svg, { Path, SvgProps } from 'react-native-svg';
 export const UndoIcon = ({ fill }: SvgProps) =>
   (
     <Svg
-      width={72.797}
-      height={91.378}
       viewBox="0 0 19.261 24.177"
       fill={fill}
     >

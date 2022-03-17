@@ -3,9 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import { GameElement } from '../gameElement/GameElement';
-import { EndGameModal } from '../EndGameModal';
+import { EndGameModal } from '../modals/EndGameModal';
 import { BackgroundComponent } from '../../common/BackgroundComponent';
-import { EndLevelModal } from '../EndLevelModal';
+import { EndLevelModal } from '../modals/EndLevelModal';
 import { useGridPage } from './useGridPage';
 import { useGridPageLevel } from './useGridPageLevel';
 import * as bgImg from '../../../assets/bg.png';
@@ -34,7 +34,7 @@ export const GridPage = ({ navigation, route }: Props) => {
     <View style={styles.topContainer}>
       <BackgroundComponent img={bgImg} />
       <EndGameModal grid={grid} onModalClose={handleModalClose} />
-      <EndLevelModal grid={grid} levelGrid={levelGrid} onModalClose={handleModalClose} />
+      <EndLevelModal grid={grid} levelGrid={levelGrid} levelId={levelId} onModalClose={handleModalClose} />
       <GameElement
         key={gameCounter}
         grid={grid}

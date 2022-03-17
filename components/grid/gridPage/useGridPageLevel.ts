@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
-import { GameLevel, GridElementState } from '../../../utils/types';
-import { initGrid } from '../../../utils/gridStateUtils';
 import data from '../../levels/levels.json';
+import {
+  CompletedLevelsKey,
+  retrieveObject,
+  storeObject,
+  GameLevel,
+  GridElementState,
+  initGrid,
+} from '../../../utils';
 
 interface Props {
   navigation: NativeStackNavigationProp<any>;
@@ -23,6 +29,12 @@ export const useGridPageLevel = ({ navigation, route }: Props) => {
     : [];
 
   const handleModalClose = async (navigateTo: string) => {
+    const retrievedCompletedLevels = await retrieveObject(CompletedLevelsKey) as Array<number> ?? [];
+    if (!retrievedCompletedLevels.includes(levelId)) {
+      retrievedCompletedLevels.push(levelId);
+      await storeObject(CompletedLevelsKey, retrievedCompletedLevels);
+    }
+
     setGameCounter(gameCounter + 1);
     setGrid(initGrid);
     setScore(0);

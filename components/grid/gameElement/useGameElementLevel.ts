@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { GridElementState, GridElementType } from '../../../utils/types';
-import { deepGridCopy } from '../../../utils/gridStateUtils';
-import { emptyElement, getRandomNewElement } from '../../../utils/gridElementStateUtils';
+import { GridElementState, GridElementType, deepGridCopy, emptyElement, getRandomNewElement } from '../../../utils';
 
 interface Props {
   grid: GridElementState[];

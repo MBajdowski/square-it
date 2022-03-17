@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { vw } from '../../utils/dimetionsUtils';
+import { vw } from '../../utils';
 
 interface Props {
   score: number;
@@ -18,8 +18,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-
-    marginBottom: vw(1),
   },
 
   scoreTextContainer: {

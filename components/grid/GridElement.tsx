@@ -1,11 +1,16 @@
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import { GridElementState, GridElementType, N } from '../../utils/types';
-import { TileElement } from './TileElement';
-import { vw } from '../../utils/dimetionsUtils';
 import {
-  deepGridCopy, getFinalJokerElement, getPairs, hasPair,
-} from '../../utils/gridStateUtils';
+  GridElementState,
+  GridElementType,
+  N,
+  vw,
+  deepGridCopy,
+  getFinalJokerElement,
+  getPairs,
+  hasPair,
+} from '../../utils';
+import { TileElement } from './TileElement';
 
 interface GridProps {
   grid: GridElementState[];

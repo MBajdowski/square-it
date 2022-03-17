@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GridElementState } from '../../../utils/types';
-import { emptyElement } from '../../../utils/gridElementStateUtils';
-import { retrieveObject, storeObject, TileHolderElementKey } from '../../../utils/asyncStorageUtils';
+import { GridElementState, emptyElement, retrieveObject, storeObject, TileHolderElementKey } from '../../../utils';
 
 interface HolderElementProps {
   newElement: GridElementState;

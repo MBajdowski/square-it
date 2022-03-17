@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {
   Modal, StyleSheet, Text, View,
 } from 'react-native';
-import { GridElementState, GridElementType } from '../../utils/types';
-import { ButtonElement } from '../common/ButtonElement';
-import { vw } from '../../utils/dimetionsUtils';
+import { GridElementState, GridElementType, vw } from '../../../utils';
+import { ButtonElement } from '../../common/ButtonElement';
 
 interface MyProps {
   grid: GridElementState[];

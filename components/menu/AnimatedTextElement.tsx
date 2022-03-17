@@ -1,6 +1,6 @@
 import { Animated, StyleSheet } from 'react-native';
 import React, { useEffect, useRef } from 'react';
-import { vw } from '../../utils/dimetionsUtils';
+import { vw } from '../../utils';
 import InterpolationConfigType = Animated.InterpolationConfigType;
 
 interface Props {

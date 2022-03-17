@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { GridElementState } from '../../../utils/types';
-import { initGrid } from '../../../utils/gridStateUtils';
 import {
   CurrentScoreKey,
   GameInProgressKey,
@@ -12,7 +10,9 @@ import {
   retrieveObject,
   storeNumber,
   storeObject,
-} from '../../../utils/asyncStorageUtils';
+  GridElementState,
+  initGrid,
+} from '../../../utils';
 
 interface Props {
   navigation: NativeStackNavigationProp<any>;

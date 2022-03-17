@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Pressable, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { vw } from '../../utils/dimetionsUtils';
+import { useIsFocused } from '@react-navigation/native';
 import { TileElement } from '../grid/TileElement';
-import { newValueElementWithValue } from '../../utils/gridElementStateUtils';
 import { BackgroundComponent } from '../common/BackgroundComponent';
 import { ButtonElement } from '../common/ButtonElement';
-import { CheckIcon } from '../icons/CheckIcon';
+import { CheckIcon } from '../icons';
 import data from './levels.json';
-import { GameLevel } from '../../utils/types';
-import * as bgImg from '../../../assets/bg.png';
+import * as bgImg from '../../assets/bg.png';
+import { CompletedLevelsKey, retrieveObject, GameLevel, newValueElementWithValue, vw } from '../../utils';
 
 const noInRow = 5;
 
@@ -22,6 +21,18 @@ interface Props {
 export const LevelsPage = ({ navigation }: Props) => {
   const levels: GameLevel[] = JSON.parse(JSON.stringify(data));
   const noOfRows = Math.ceil(levels.length / noInRow);
+  const [completedLevels, setCompletedLevels] = useState<Array<number>>([]);
+
+  const isPageVisible = useIsFocused();
+
+  useEffect(() => {
+    initCompletedLevels();
+  }, [isPageVisible]);
+
+  const initCompletedLevels = async () => {
+    const retrievedCompletedLevels = await retrieveObject(CompletedLevelsKey) ?? [];
+    setCompletedLevels(retrievedCompletedLevels);
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -50,7 +61,7 @@ export const LevelsPage = ({ navigation }: Props) => {
                           navigation.navigate('GridPage', { levelId: m.id });
                         }}
                       />
-                      {(m.id < 3) && (
+                      {completedLevels.includes(m.id) && (
                         <Pressable
                           onPress={() => {
                             navigation.navigate('GridPage', { levelId: m.id });

@@ -2,7 +2,7 @@ import {
   Pressable, StyleProp, StyleSheet, Text, ViewStyle,
 } from 'react-native';
 import React from 'react';
-import { vw } from '../../utils/dimetionsUtils';
+import { vw } from '../../utils';
 
 interface Props {
   text: string;

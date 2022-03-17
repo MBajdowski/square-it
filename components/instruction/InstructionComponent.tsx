@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Image, ImageSourcePropType, StyleSheet, Text, View,
 } from 'react-native';
-import { vw } from '../../utils/dimetionsUtils';
+import { vw } from '../../utils';
 
 interface Props {
   text: string;

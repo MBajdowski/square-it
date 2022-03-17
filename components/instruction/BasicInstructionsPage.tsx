@@ -6,7 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { InstructionComponent } from './InstructionComponent';
 import { BackgroundComponent } from '../common/BackgroundComponent';
 import { ButtonElement } from '../common/ButtonElement';
-import { vw } from '../../utils/dimetionsUtils';
+import { vw } from '../../utils';
 import * as bgImg from '../../assets/bg.png';
 import * as blackedMerged from '../../assets/instruction/blackedMerged.png';
 import * as plusTwoPairsMerged from '../../assets/instruction/plusTwoPairsMerged.png';

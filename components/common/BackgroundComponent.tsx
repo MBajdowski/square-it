@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Image, ImageSourcePropType, StyleSheet, View,
 } from 'react-native';
-import { noOfRows, vh, vw } from '../../utils/dimetionsUtils';
+import { noOfRows, vh, vw } from '../../utils';
 
 interface Props {
   noInRow?: number;

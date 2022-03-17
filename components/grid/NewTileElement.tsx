@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TileElement } from './TileElement';
-import { vw } from '../../utils/dimetionsUtils';
-import { GridElementState } from '../../utils/types';
+import { GridElementState, vw } from '../../utils';
 
 const styles = StyleSheet.create({
   newElementContainer: {

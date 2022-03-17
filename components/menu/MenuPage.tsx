@@ -2,7 +2,6 @@ import { Image, StyleSheet, View } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useIsFocused } from '@react-navigation/native';
-import { vw } from '../../utils/dimetionsUtils';
 import { AnimatedTextElement } from './AnimatedTextElement';
 import { ButtonElement } from '../common/ButtonElement';
 import {
@@ -11,11 +10,12 @@ import {
   removeCurrentGameData,
   retrieveNumber,
   retrieveObject,
-} from '../../utils/asyncStorageUtils';
+  vw,
+} from '../../utils';
 import { BackgroundComponent } from '../common/BackgroundComponent';
 import * as bgImg from '../../assets/bg.png';
 import * as titleImg from '../../assets/title.png';
-import * as logoImg from '../../assets/logo.png';
+import * as logoImg from '../../assets/logo_color_bg.png';
 
 interface Props {
   navigation: NativeStackNavigationProp<any>

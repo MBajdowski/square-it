@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Svg, { Path, SvgProps } from 'react-native-svg';
 
-export const PlusIcon = ({ fill }: SvgProps) =>
+export const PlusIcon = ({ fill, height, width }: SvgProps) =>
   (
     <Svg
-      width={277.603}
-      height={277.603}
+      width={height}
+      height={width}
       viewBox="0 0 73.449 73.449"
       fill={fill}
     >

@@ -1,7 +1,4 @@
 import { useEffect, useState } from 'react';
-import { GridElementState, GridElementType } from '../../../utils/types';
-import { deepGridCopy } from '../../../utils/gridStateUtils';
-import { emptyElement, getRandomNewElement, newValueElement } from '../../../utils/gridElementStateUtils';
 import {
   GameInProgressKey,
   NewElementKey,
@@ -11,7 +8,13 @@ import {
   retrieveObject,
   storeObject,
   UndoAvailableKey,
-} from '../../../utils/asyncStorageUtils';
+  GridElementState,
+  GridElementType,
+  deepGridCopy,
+  emptyElement,
+  getRandomNewElement,
+  newValueElement,
+} from '../../../utils';
 
 interface Props {
   grid: GridElementState[];

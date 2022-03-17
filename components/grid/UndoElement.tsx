@@ -1,7 +1,7 @@
-import { Pressable, StyleSheet } from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
-import { vw } from '../../utils/dimetionsUtils';
-import { UndoIcon } from '../icons/UndoIcon';
+import { vw } from '../../utils';
+import { UndoIcon } from '../icons';
 
 interface Props {
   undoAvailable: boolean;
@@ -11,7 +11,7 @@ interface Props {
 export const UndoElement = ({ undoAvailable, onUndoElementPress }: Props) =>
   (
     <Pressable style={styles.undoContainer} onPress={onUndoElementPress}>
-      <UndoIcon height={vw(8)} fill={undoAvailable ? 'black' : 'grey'} />
+      <UndoIcon fill={undoAvailable ? 'black' : 'grey'} />
     </Pressable>
   );
 
@@ -21,11 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    marginBottom: vw(1),
     width: vw(15),
-  },
-  svg: {
-    height: vw(8),
-    width: vw(8),
+    height: vw(10),
   },
 });

@@ -1,7 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import { GridElementState } from '../../../utils/types';
-import { vw } from '../../../utils/dimetionsUtils';
+import { GridElementState, vw } from '../../../utils';
 import { useGameElement } from './useGameElement';
 import { NewTileElement } from '../NewTileElement';
 import { GridElement } from '../GridElement';
@@ -81,8 +80,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
 
     width: vw(80),
-
+    marginBottom: vw(1),
   },
 });
