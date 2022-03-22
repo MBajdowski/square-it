@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { GridElementState, GridElementType, deepGridCopy, emptyElement, getRandomNewElement } from '../../../utils';
+import {
+  GridElementState, GridElementType, deepGridCopy, emptyElement, getRandomNewElement,
+} from '../../../utils';
 
 interface Props {
   grid: GridElementState[];
@@ -16,6 +18,7 @@ export const useGameElementLevel = ({
   const [prevScore, setPrevScore] = useState<number>(0);
   const [undoAvailable, setUndoAvailable] = useState<boolean>(false);
   const [newElement, setNewElement] = useState<GridElementState>(getRandomNewElement());
+  const [isEyePressed, setIsEyePressed] = useState<boolean>(false);
 
   const handleUndoPress = () => {
     if (undoAvailable) {
@@ -51,5 +54,7 @@ export const useGameElementLevel = ({
     newElement,
     handleGridPress,
     handleHolderElementChanged,
+    isEyePressed,
+    setIsEyePressed,
   };
 };

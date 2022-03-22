@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, View} from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import React from 'react';
 import { vw } from '../../utils';
 import { UndoIcon } from '../icons';

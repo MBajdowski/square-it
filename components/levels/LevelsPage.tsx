@@ -9,8 +9,9 @@ import { BackgroundComponent } from '../common/BackgroundComponent';
 import { ButtonElement } from '../common/ButtonElement';
 import { CheckIcon } from '../icons';
 import data from './levels.json';
-import * as bgImg from '../../assets/bg.png';
-import { CompletedLevelsKey, retrieveObject, GameLevel, newValueElementWithValue, vw } from '../../utils';
+import {
+  CompletedLevelsKey, retrieveObject, GameLevel, newValueElementWithValue, vw,
+} from '../../utils';
 
 const noInRow = 5;
 
@@ -36,7 +37,7 @@ export const LevelsPage = ({ navigation }: Props) => {
 
   return (
     <View style={styles.mainContainer}>
-      <BackgroundComponent img={bgImg} />
+      <BackgroundComponent img={require('../../assets/bg.png')} />
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Game Levels</Text>
         <ButtonElement
@@ -57,14 +58,15 @@ export const LevelsPage = ({ navigation }: Props) => {
                     <View key={`${m.id}levelElement`} style={styles.levelContainer}>
                       <TileElement
                         element={newValueElementWithValue(-1, -1, m.id)}
+                        linearColor
                         handlePress={() => {
-                          navigation.navigate('GridPage', { levelId: m.id });
+                          navigation.navigate('GridPageLevel', { levelId: m.id });
                         }}
                       />
                       {completedLevels.includes(m.id) && (
                         <Pressable
                           onPress={() => {
-                            navigation.navigate('GridPage', { levelId: m.id });
+                            navigation.navigate('GridPageLevel', { levelId: m.id });
                           }}
                           style={styles.tickContainer}
                         >

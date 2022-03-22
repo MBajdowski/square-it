@@ -1,0 +1,140 @@
+<html>
+<style>
+    .mainContainer {display: flex; height: 300px; width: 200px; flex-direction: column}
+    .row {flex:1; display: flex;}
+    .col {flex:1; display: flex;}
+</style>
+
+<script>
+    var levelArray = [];
+
+    function generateLevel() {
+       let level = {};
+       level.id = levelArray.length+1;
+       level.levelGrid = [];
+       for(let y = 0; y<5; y++){
+           for(let x=0; x<5; x++){
+               let tile = {};
+               let element = document.getElementById("x"+x+"y"+y)
+               tile.x = x;
+               tile.y = y;
+               if(!element || !element.value) {
+                   continue;
+               } else if( +element.value === 0) {
+                   tile.type = 0;
+                   tile.value = 0;
+               } else {
+                   tile.type = 2;
+                   tile.value = +element.value;
+               }
+
+               element.value = "";
+               level.levelGrid.push(tile);
+           }
+       }
+
+       levelArray.push(level);
+
+        document.getElementById("json").innerHTML = JSON.stringify(levelArray);
+    }
+</script>
+
+<body>
+    <div class="mainContainer">
+        <div class="row">
+            <div class="col">
+                <input id="x0y0" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x1y0" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x2y0" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x3y0" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x4y0" type="number"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <input id="x0y1" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x1y1" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x2y1" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x3y1" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x4y1" type="number"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <input id="x0y2" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x1y2" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x2y2" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x3y2" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x4y2" type="number"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <input id="x0y3" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x1y3" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x2y3" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x3y3" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x4y3" type="number"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <input id="x0y4" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x1y4" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x2y4" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x3y4" type="number"/>
+            </div>
+            <div class="col">
+                <input id="x4y4" type="number"/>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="generateLevel()">Create</button>
+
+    <div id="json">
+    </div>
+</body>
+</html>

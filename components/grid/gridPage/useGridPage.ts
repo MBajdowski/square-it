@@ -24,8 +24,6 @@ export const useGridPage = ({ navigation }: Props) => {
   const [score, setScore] = useState<number>(0);
   const [isComponentInitiated, setIsComponentInitiated] = useState(false);
 
-  const levelGrid: GridElementState[] = [];
-
   useEffect(() => {
     initGridAndScore();
   }, []);
@@ -80,7 +78,6 @@ export const useGridPage = ({ navigation }: Props) => {
     grid,
     gameCounter,
     score,
-    levelGrid,
     handleModalClose,
     handleScoreChange,
     handleGridChange,

@@ -17,10 +17,11 @@ interface GridProps {
   levelGrid: GridElementState[];
   handleGridPress: (newGrid: GridElementState[], newPoints?: number) => void;
   newElement: GridElementState;
+  showLevelElements?: boolean;
 }
 
 export const GridElement = ({
-  grid, levelGrid, handleGridPress, newElement,
+  grid, levelGrid, handleGridPress, newElement, showLevelElements,
 }: GridProps) => {
   const handlePress = (element: GridElementState): void => {
     if (element.type !== GridElementType.EMPTY) {
@@ -104,6 +105,7 @@ export const GridElement = ({
                             element={e}
                             levelElement={getLevelElement(e.x, e.y)}
                             handlePress={handlePress}
+                            showLevelElements={showLevelElements}
                           />
                         ))
                   }

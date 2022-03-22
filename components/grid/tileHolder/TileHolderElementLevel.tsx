@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { TileElement } from '../TileElement';
 import { GridElementState, vw } from '../../../utils';
-import { useTileHolderElement } from './useTileHolderElement';
+import { useTileHolderElementLevel } from './useTileHolderElementLevel';
 
 interface HolderElementProps {
   newElement: GridElementState;
@@ -18,11 +18,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export const TileHolderElement = ({ newElement, onHolderElementChange }: HolderElementProps) => {
+export const TileHolderElementLevel = ({ newElement, onHolderElementChange }: HolderElementProps) => {
   const {
     holderElement,
     handleHolderPress,
-  } = useTileHolderElement({ newElement, onHolderElementChange });
+  } = useTileHolderElementLevel({ newElement, onHolderElementChange });
 
   return (
     <View style={styles.elementHolderContainer}>

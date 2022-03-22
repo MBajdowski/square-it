@@ -34,7 +34,9 @@ const isSubset = (superset: GridElementState[], subset: GridElementState[]) => {
   return !isElementMissing;
 };
 
-export const EndLevelModal = ({ grid, levelGrid, onModalClose, levelId }: MyProps) => {
+export const EndLevelModal = ({
+  grid, levelGrid, onModalClose, levelId,
+}: MyProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -57,6 +59,7 @@ export const EndLevelModal = ({ grid, levelGrid, onModalClose, levelId }: MyProp
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
+          {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
           <Text style={styles.modalText}>Level {levelId} completed!</Text>
           <View style={styles.tickContainer}>
             <CheckIcon fill="#00aa13" />

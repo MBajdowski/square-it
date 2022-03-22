@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  Animated, StyleSheet, Text, TouchableWithoutFeedback, View,
+  Animated, Pressable, StyleSheet, Text, View,
 } from 'react-native';
 import { GridElementState, GridElementType, vw } from '../../utils';
 import { PlusIcon } from '../icons';
@@ -9,16 +9,32 @@ interface Props {
   element: GridElementState;
   levelElement?: GridElementState;
   handlePress: (element: GridElementState) => void;
+  showLevelElements?: boolean;
+  linearColor?: boolean;
 }
 
-const calculateHslValue = (element: GridElementState) => {
+const calculateLogHslValue = (element: GridElementState) => {
   const hslValue = (160 + Math.log2(element.value) * 15) % 360;
   return `hsl(${hslValue}, 80%, 90%)`;
 };
 
-export const TileElement = ({ element, handlePress, levelElement }: Props) => {
+const calculateLinearHslValue = (element: GridElementState) => {
+  const hslValue = (160 + element.value * 5) % 360;
+  return `hsl(${hslValue}, 80%, 90%)`;
+};
+
+export const TileElement = ({
+  element, handlePress, levelElement, showLevelElements, linearColor,
+}: Props) => {
   const [lastChangedValue, setLastChangedValue] = useState<GridElementState>({ ...element });
   const opacity = useRef(new Animated.Value(1));
+
+  const isElementLevelTheSameAsElement = () => {
+    if (levelElement) {
+      return element.value === levelElement.value && element.type === levelElement.type;
+    }
+    return false;
+  };
 
   useEffect(() => {
     if (element.type === GridElementType.EMPTY && lastChangedValue.type !== element.type) {
@@ -36,56 +52,64 @@ export const TileElement = ({ element, handlePress, levelElement }: Props) => {
   }, [element]);
 
   return (
-    <View style={styles.gridContainer}>
-      <TouchableWithoutFeedback onPress={() =>
+    <Pressable
+      style={styles.gridContainer}
+      onPress={() =>
         handlePress(lastChangedValue)}
-      >
-        <View style={styles.middleContainer}>
-          {
-                lastChangedValue.type === GridElementType.EMPTY && levelElement
-                && (
-                <View style={styles.levelContainer}>
-                  <Text style={styles.levelText}>{levelElement.value}</Text>
-                </View>
-                )
-            }
-          {
-                lastChangedValue.type === GridElementType.EMPTY && !levelElement
-                && <View style={styles.emptyContainer} />
-            }
-          {
-                lastChangedValue.type === GridElementType.VALUE
-                && (
-                <Animated.View style={[
-                  styles.valueContainer,
-                  lastChangedValue.bonus ? styles.bonusBorder : styles.normalBorder,
-                  { opacity: opacity.current, backgroundColor: calculateHslValue(lastChangedValue) }]}
-                >
-                  <Text style={styles.valueTextContainer}>{lastChangedValue.value}</Text>
-                </Animated.View>
-                )
-            }
-          {
-                lastChangedValue.type === GridElementType.BLOCKED
-                && (
-                <Animated.View
-                  style={[lastChangedValue.value === 1 ? styles.blockedContainer1 : styles.blockedContainer2,
-                    { opacity: opacity.current }]}
-                />
-                )
-            }
-          {
-                lastChangedValue.type === GridElementType.JOKER
-                && (
-                <View style={[styles.jokerContainer, styles.normalBorder]}>
-                  <PlusIcon height={vw(7)} width={vw(7)} fill="black" />
-                </View>
-                )
-            }
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
+    >
+      <View style={styles.middleContainer}>
+        {
+          lastChangedValue.type === GridElementType.EMPTY
+            && <View style={styles.emptyContainer} />
+        }
 
+        {
+          levelElement
+            && (
+            <View style={[
+              styles.levelContainer,
+              showLevelElements ? styles.onTop : styles.onBottom,
+              isElementLevelTheSameAsElement() && { backgroundColor: '#a2ff93' },
+            ]}
+            >
+              <Text style={styles.levelText}>{levelElement.value}</Text>
+            </View>
+            )
+        }
+
+        {lastChangedValue.type === GridElementType.VALUE
+            && (
+            <Animated.View
+              style={[
+                styles.valueContainer,
+                lastChangedValue.bonus ? styles.bonusBorder : styles.normalBorder,
+                {
+                  opacity: opacity.current,
+                  backgroundColor: linearColor
+                    ? calculateLinearHslValue(lastChangedValue) : calculateLogHslValue(lastChangedValue),
+                }]}
+            >
+              <Text style={styles.valueTextContainer}>{lastChangedValue.value}</Text>
+            </Animated.View>
+            )}
+
+        {lastChangedValue.type === GridElementType.BLOCKED
+            && (
+            <Animated.View
+              style={[
+                lastChangedValue.value === 1 ? styles.blockedContainer1 : styles.blockedContainer2,
+                { opacity: opacity.current }]}
+            />
+            )}
+
+        {lastChangedValue.type === GridElementType.JOKER
+            && (
+            <View style={[styles.jokerContainer, styles.normalBorder]}>
+              <PlusIcon height={vw(7)} width={vw(7)} fill="black" />
+            </View>
+            )}
+      </View>
+    </Pressable>
   );
 };
 
@@ -139,11 +163,25 @@ const styles = StyleSheet.create({
   },
 
   levelContainer: {
-    flex: 1,
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center',
 
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
     backgroundColor: 'white',
+    opacity: 0.85,
+  },
+
+  onBottom: {
+    zIndex: 0,
+  },
+
+  onTop: {
+    zIndex: 1,
   },
 
   levelText: {

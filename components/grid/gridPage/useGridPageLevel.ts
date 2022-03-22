@@ -28,13 +28,21 @@ export const useGridPageLevel = ({ navigation, route }: Props) => {
       l.id === levelId)[0].levelGrid
     : [];
 
-  const handleModalClose = async (navigateTo: string) => {
+  const handleSuccessModalClose = async (navigateTo: string) => {
     const retrievedCompletedLevels = await retrieveObject(CompletedLevelsKey) as Array<number> ?? [];
     if (!retrievedCompletedLevels.includes(levelId)) {
       retrievedCompletedLevels.push(levelId);
       await storeObject(CompletedLevelsKey, retrievedCompletedLevels);
     }
 
+    setGameCounter(gameCounter + 1);
+    setGrid(initGrid);
+    setScore(0);
+    navigation.navigate(navigateTo);
+  };
+
+  const handleFailureModalClose = (navigateTo: string) => {
+    // TODO: To źle nawiguje (dla play again powinno iść do leveli a nie na grida)
     setGameCounter(gameCounter + 1);
     setGrid(initGrid);
     setScore(0);
@@ -49,13 +57,21 @@ export const useGridPageLevel = ({ navigation, route }: Props) => {
     setScore(newScore);
   };
 
+  const handleGameReset = () => {
+    setGameCounter(gameCounter + 1);
+    setGrid(initGrid);
+    setScore(0);
+  };
+
   return {
     grid,
     gameCounter,
     score,
     levelGrid,
-    handleModalClose,
+    handleSuccessModalClose,
+    handleFailureModalClose,
     handleScoreChange,
     handleGridChange,
+    handleGameReset,
   };
 };

@@ -57,6 +57,7 @@
         "implicit-arrow-linebreak": [
             "error",
             "below"
-        ]
+        ],
+        "global-require": 0
     }
 }

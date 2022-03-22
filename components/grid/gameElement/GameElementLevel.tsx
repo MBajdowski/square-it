@@ -1,22 +1,25 @@
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { GridElementState, vw } from '../../../utils';
-import { useGameElement } from './useGameElement';
 import { NewTileElement } from '../NewTileElement';
 import { GridElement } from '../GridElement';
-import { TileHolderElement } from '../tileHolder/TileHolderElement';
 import { UndoElement } from '../UndoElement';
 import { ScoreElement } from '../ScoreElement';
+import { useGameElementLevel } from './useGameElementLevel';
+import { TileHolderElementLevel } from '../tileHolder/TileHolderElementLevel';
+import { EyeIcon, ResetIcon } from '../../icons';
 
 interface MainGridProps {
   grid: GridElementState[];
+  levelGrid: GridElementState[];
   score: number;
   handleScoreChange: (newScore: number) => void;
   handleGridChange: (newGrid: GridElementState[]) => void;
+  handleGameReset: () => void;
 }
 
-export const GameElement = ({
-  grid, score, handleGridChange, handleScoreChange,
+export const GameElementLevel = ({
+  grid, score, handleGridChange, handleScoreChange, levelGrid, handleGameReset,
 }: MainGridProps) => {
   const {
     handleUndoPress,
@@ -24,22 +27,38 @@ export const GameElement = ({
     newElement,
     handleGridPress,
     handleHolderElementChanged,
-  } = useGameElement({
+    isEyePressed,
+    setIsEyePressed,
+  } = useGameElementLevel({
     grid, score, handleScoreChange, handleGridChange,
   });
 
   return (
     <View style={styles.topContainer}>
       <View style={styles.topPaneContainer}>
-        <TileHolderElement
+        <TileHolderElementLevel
           newElement={newElement}
           onHolderElementChange={handleHolderElementChanged}
         />
         <ScoreElement score={score} />
         <UndoElement undoAvailable={undoAvailable} onUndoElementPress={handleUndoPress} />
       </View>
-      <GridElement grid={grid} levelGrid={[]} newElement={newElement} handleGridPress={handleGridPress} />
-      <NewTileElement newElement={newElement} />
+      <GridElement grid={grid} levelGrid={levelGrid} newElement={newElement} handleGridPress={handleGridPress} showLevelElements={isEyePressed} />
+      <View style={styles.bottomPaneContainer}>
+        <Pressable style={styles.iconContainer} onPress={handleGameReset}>
+          <ResetIcon fill="black" />
+        </Pressable>
+        <NewTileElement newElement={newElement} />
+        <Pressable
+          style={styles.iconContainer}
+          onPressIn={() =>
+            setIsEyePressed(true)}
+          onPressOut={() =>
+            setIsEyePressed(false)}
+        >
+          <EyeIcon fill="black" />
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -77,5 +96,23 @@ const styles = StyleSheet.create({
 
     width: vw(80),
     marginBottom: vw(1),
+  },
+
+  bottomPaneContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+
+    width: vw(80),
+    marginTop: vw(1),
+  },
+
+  iconContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+
+    height: vw(12),
+    width: vw(12),
   },
 });

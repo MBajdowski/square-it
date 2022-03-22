@@ -6,6 +6,7 @@ import { GridPage } from './components/grid/gridPage/GridPage';
 import { MenuPage } from './components/menu/MenuPage';
 import { BasicInstructionsPage } from './components/instruction/BasicInstructionsPage';
 import { LevelsPage } from './components/levels/LevelsPage';
+import { GridPageLevel } from './components/grid/gridPage/GridPageLevel';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,6 +31,11 @@ export default function App() {
           <Stack.Screen
             name="GridPage"
             component={GridPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="GridPageLevel"
+            component={GridPageLevel}
             options={{ headerShown: false }}
           />
           <Stack.Screen
