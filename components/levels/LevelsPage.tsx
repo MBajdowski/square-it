@@ -6,12 +6,12 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useIsFocused } from '@react-navigation/native';
 import { TileElement } from '../grid/TileElement';
 import { BackgroundComponent } from '../common/BackgroundComponent';
-import { ButtonElement } from '../common/ButtonElement';
 import { CheckIcon } from '../icons';
 import data from './levels.json';
 import {
   CompletedLevelsKey, retrieveObject, GameLevel, newValueElementWithValue, vw,
 } from '../../utils';
+import { BackButtonElement } from '../common/BackButtonElement';
 
 const noInRow = 5;
 
@@ -38,15 +38,9 @@ export const LevelsPage = ({ navigation }: Props) => {
   return (
     <View style={styles.mainContainer}>
       <BackgroundComponent img={require('../../assets/bg.png')} />
+      <BackButtonElement navigation={navigation} />
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Game Levels</Text>
-        <ButtonElement
-          text="<"
-          onPress={() => {
-            navigation.goBack();
-          }}
-          buttonStyle={styles.button}
-        />
       </View>
       <View style={styles.scrollContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -113,13 +107,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: vw(5),
     borderTopRightRadius: vw(5),
     padding: vw(1),
-  },
-  button: {
-    position: 'absolute',
-    width: vw(12),
-    marginBottom: 0,
-    paddingTop: vw(2),
-    paddingBottom: vw(3),
   },
   rowContainer: {
     flex: 1,

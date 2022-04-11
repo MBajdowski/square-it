@@ -13,6 +13,7 @@ import {
   vw,
 } from '../../utils';
 import { BackgroundComponent } from '../common/BackgroundComponent';
+import { NewGameModal } from './NewGameModal';
 
 interface Props {
   navigation: NativeStackNavigationProp<any>
@@ -21,6 +22,7 @@ interface Props {
 export const MenuPage = ({ navigation }: Props) => {
   const [highScore, setHighScore] = useState(0);
   const [isResumeVisible, setIsResumeVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const isPageVisible = useIsFocused();
 
@@ -41,28 +43,47 @@ export const MenuPage = ({ navigation }: Props) => {
   }, [isPageVisible, setRetrievedScore]);
 
   const onNewGamePress = async () => {
+    if (isResumeVisible) {
+      setIsModalVisible(true);
+    } else {
+      await removeCurrentGameData();
+      navigation.navigate('GridPage');
+    }
+  };
+
+  const onModalNewGamePress = async () => {
     await removeCurrentGameData();
+    setIsModalVisible(false);
     navigation.navigate('GridPage');
+  };
+
+  const onModalBackToMenuPress = () => {
+    setIsModalVisible(false);
   };
 
   return (
     <View style={styles.topContainer}>
       <BackgroundComponent img={require('../../assets/bg.png')} />
+      <NewGameModal
+        isVisible={isModalVisible}
+        onNewGamePress={onModalNewGamePress}
+        onBackToMenuPress={onModalBackToMenuPress}
+      />
       <View style={styles.imageContainer}>
         <Image style={styles.titleImg} source={require('../../assets/title.png')} />
         <Image style={styles.logoImg} source={require('../../assets/logo_color_bg.png')} />
         <AnimatedTextElement text={`High Score: ${highScore}`} />
       </View>
       <View style={styles.buttonsContainer}>
-        <ButtonElement text="New game" onPress={onNewGamePress} />
         {isResumeVisible && (
-          <ButtonElement
-            text="Resume"
-            onPress={() => {
-              navigation.navigate('GridPage');
-            }}
-          />
+        <ButtonElement
+          text="Resume"
+          onPress={() => {
+            navigation.navigate('GridPage');
+          }}
+        />
         )}
+        <ButtonElement text="New game" onPress={onNewGamePress} />
         <ButtonElement
           text="Levels"
           onPress={() => {

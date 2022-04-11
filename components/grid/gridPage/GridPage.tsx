@@ -5,6 +5,7 @@ import { GameElement } from '../gameElement/GameElement';
 import { EndGameModal } from '../modals/EndGameModal';
 import { BackgroundComponent } from '../../common/BackgroundComponent';
 import { useGridPage } from './useGridPage';
+import { BackButtonElement } from '../../common/BackButtonElement';
 
 interface Props {
   navigation: NativeStackNavigationProp<any>;
@@ -24,6 +25,7 @@ export const GridPage = ({ navigation }: Props) => {
     <View style={styles.topContainer}>
       <BackgroundComponent img={require('../../../assets/bg.png')} />
       <EndGameModal grid={grid} onModalClose={handleModalClose} />
+      <BackButtonElement navigation={navigation} />
       <GameElement
         key={gameCounter}
         grid={grid}

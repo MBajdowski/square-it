@@ -7,6 +7,7 @@ import { BackgroundComponent } from '../../common/BackgroundComponent';
 import { EndLevelModal } from '../modals/EndLevelModal';
 import { useGridPageLevel } from './useGridPageLevel';
 import { GameElementLevel } from '../gameElement/GameElementLevel';
+import { BackButtonElement } from '../../common/BackButtonElement';
 
 interface Props {
   navigation: NativeStackNavigationProp<any>;
@@ -33,6 +34,7 @@ export const GridPageLevel = ({ navigation, route }: Props) => {
       <BackgroundComponent img={require('../../../assets/bg.png')} />
       <EndGameModal grid={grid} onModalClose={handleFailureModalClose} />
       <EndLevelModal grid={grid} levelGrid={levelGrid} levelId={levelId} onModalClose={handleSuccessModalClose} />
+      <BackButtonElement navigation={navigation} />
       <GameElementLevel
         key={gameCounter}
         grid={grid}

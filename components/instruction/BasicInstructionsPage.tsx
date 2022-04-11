@@ -5,8 +5,8 @@ import {
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { InstructionComponent } from './InstructionComponent';
 import { BackgroundComponent } from '../common/BackgroundComponent';
-import { ButtonElement } from '../common/ButtonElement';
 import { vw } from '../../utils';
+import { BackButtonElement } from '../common/BackButtonElement';
 
 interface Props {
   navigation: NativeStackNavigationProp<any>
@@ -17,15 +17,9 @@ export const BasicInstructionsPage = ({ navigation }: Props) =>
 
     <View style={styles.mainContainer}>
       <BackgroundComponent img={require('../../assets/bg.png')} />
+      <BackButtonElement navigation={navigation} />
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>How To Play</Text>
-        <ButtonElement
-          text="<"
-          onPress={() => {
-            navigation.goBack();
-          }}
-          buttonStyle={styles.button}
-        />
       </View>
       <View style={styles.scrollContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -117,12 +111,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(229, 219, 206, 0.5)',
     borderTopLeftRadius: vw(5),
     borderTopRightRadius: vw(5),
-  },
-  button: {
-    position: 'absolute',
-    width: vw(12),
-    marginBottom: 0,
-    paddingTop: vw(2),
-    paddingBottom: vw(3),
   },
 });
