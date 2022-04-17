@@ -22,10 +22,13 @@ export const BackButtonElement = ({ navigation }: Props) =>
 
 const styles = StyleSheet.create({
   button: {
+    display: 'flex',
+
     position: 'absolute',
     top: vw(5),
     left: vw(5),
     width: vw(12),
+    height: vw(12),
 
     padding: vw(4),
     marginBottom: 0,

@@ -66,6 +66,14 @@ export const useGridPage = ({ navigation }: Props) => {
     navigation.navigate(navigateTo);
   };
 
+  const handleBackToMenu = async () => {
+    await handleModalClose('MenuPage');
+  };
+
+  const handlePlayAgain = async () => {
+    await handleModalClose('GridPage');
+  };
+
   const handleGridChange = (newGrid: GridElementState[]) => {
     setGrid(newGrid);
   };
@@ -78,7 +86,8 @@ export const useGridPage = ({ navigation }: Props) => {
     grid,
     gameCounter,
     score,
-    handleModalClose,
+    handleBackToMenu,
+    handlePlayAgain,
     handleScoreChange,
     handleGridChange,
   };

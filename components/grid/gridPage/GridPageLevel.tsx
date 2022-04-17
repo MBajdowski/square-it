@@ -23,7 +23,7 @@ export const GridPageLevel = ({ navigation, route }: Props) => {
     score,
     levelGrid,
     handleSuccessModalClose,
-    handleFailureModalClose,
+    handleBackToMenu,
     handleScoreChange,
     handleGridChange,
     handleGameReset,
@@ -32,7 +32,7 @@ export const GridPageLevel = ({ navigation, route }: Props) => {
   return (
     <View style={styles.topContainer}>
       <BackgroundComponent img={require('../../../assets/bg.png')} />
-      <EndGameModal grid={grid} onModalClose={handleFailureModalClose} />
+      <EndGameModal grid={grid} onBackToMenu={handleBackToMenu} onPlayAgain={handleGameReset} />
       <EndLevelModal grid={grid} levelGrid={levelGrid} levelId={levelId} onModalClose={handleSuccessModalClose} />
       <BackButtonElement navigation={navigation} />
       <GameElementLevel

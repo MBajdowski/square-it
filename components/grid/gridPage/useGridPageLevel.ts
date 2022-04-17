@@ -41,12 +41,11 @@ export const useGridPageLevel = ({ navigation, route }: Props) => {
     navigation.navigate(navigateTo);
   };
 
-  const handleFailureModalClose = (navigateTo: string) => {
-    // TODO: To źle nawiguje (dla play again powinno iść do leveli a nie na grida)
+  const handleBackToMenu = () => {
     setGameCounter(gameCounter + 1);
     setGrid(initGrid);
     setScore(0);
-    navigation.navigate(navigateTo);
+    navigation.navigate('MenuPage');
   };
 
   const handleGridChange = (newGrid: GridElementState[]) => {
@@ -69,7 +68,7 @@ export const useGridPageLevel = ({ navigation, route }: Props) => {
     score,
     levelGrid,
     handleSuccessModalClose,
-    handleFailureModalClose,
+    handleBackToMenu,
     handleScoreChange,
     handleGridChange,
     handleGameReset,

@@ -23,6 +23,16 @@ const calculateLinearHslValue = (element: GridElementState) => {
   return `hsl(${hslValue}, 80%, 90%)`;
 };
 
+const calculateFontSize = (element: GridElementState) => {
+  if (element.value < 999) {
+    return vw(5);
+  }
+  if (element.value < 9999) {
+    return vw(4);
+  }
+  return vw(3);
+};
+
 export const TileElement = ({
   element, handlePress, levelElement, showLevelElements, linearColor,
 }: Props) => {
@@ -89,7 +99,9 @@ export const TileElement = ({
                     ? calculateLinearHslValue(lastChangedValue) : calculateLogHslValue(lastChangedValue),
                 }]}
             >
-              <Text style={styles.valueTextContainer}>{lastChangedValue.value}</Text>
+              <Text style={[styles.valueTextContainer, { fontSize: calculateFontSize(lastChangedValue) }]}>
+                {lastChangedValue.value}
+              </Text>
             </Animated.View>
             )}
 
@@ -145,7 +157,6 @@ const styles = StyleSheet.create({
 
   valueTextContainer: {
     fontWeight: 'bold',
-    fontSize: vw(5),
   },
 
   normalBorder: {

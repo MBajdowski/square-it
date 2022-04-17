@@ -2,9 +2,9 @@ import { GridElementState, GridElementType } from './types';
 import { getRandomWithProbability, ProbabilityValue } from './mathUtils';
 
 const probabilities: ProbabilityValue[] = [
-  { value: 1, probability: 12 }, // 1
-  { value: 2, probability: 6 }, // 2
-  { value: 3, probability: 1 }, // 4
+  { value: 1, probability: 8 }, // 1
+  { value: 2, probability: 5 }, // 2
+  { value: 3, probability: 2 }, // 4
   { value: 4, probability: 2 }, // blocker
   { value: 5, probability: 1 }, // joker
 ];
@@ -56,7 +56,7 @@ export const newValueElementWithValue = (x: number, y: number, value: number): G
 
 export const getRandomNewElement = (): GridElementState => {
   const randomValue = getRandomWithProbability(probabilities);
-  let element: GridElementState = newValueElement(-1, -1);
+  let element: GridElementState;
 
   switch (randomValue) {
     case 1:

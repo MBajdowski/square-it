@@ -7,10 +7,11 @@ import { ButtonElement } from '../../common/ButtonElement';
 
 interface MyProps {
   grid: GridElementState[];
-  onModalClose: (navigateTo: string) => void;
+  onBackToMenu: () => void;
+  onPlayAgain: () => void;
 }
 
-export const EndGameModal = ({ grid, onModalClose }: MyProps) => {
+export const EndGameModal = ({ grid, onBackToMenu, onPlayAgain }: MyProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -22,12 +23,12 @@ export const EndGameModal = ({ grid, onModalClose }: MyProps) => {
 
   const handleModalCloseNavigateToMenu = () => {
     setIsVisible(false);
-    onModalClose('MenuPage');
+    onBackToMenu();
   };
 
   const handleModalCloseNavigateToNewGame = () => {
     setIsVisible(false);
-    onModalClose('GridPage');
+    onPlayAgain();
   };
 
   return (

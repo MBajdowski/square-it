@@ -16,7 +16,8 @@ export const GridPage = ({ navigation }: Props) => {
     grid,
     gameCounter,
     score,
-    handleModalClose,
+    handleBackToMenu,
+    handlePlayAgain,
     handleScoreChange,
     handleGridChange,
   } = useGridPage({ navigation });
@@ -24,7 +25,7 @@ export const GridPage = ({ navigation }: Props) => {
   return (
     <View style={styles.topContainer}>
       <BackgroundComponent img={require('../../../assets/bg.png')} />
-      <EndGameModal grid={grid} onModalClose={handleModalClose} />
+      <EndGameModal grid={grid} onBackToMenu={handleBackToMenu} onPlayAgain={handlePlayAgain} />
       <BackButtonElement navigation={navigation} />
       <GameElement
         key={gameCounter}
