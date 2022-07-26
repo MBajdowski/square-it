@@ -46,6 +46,13 @@ export const TileElement = ({
     return false;
   };
 
+  const isElementLevelNotTheSameAsElement = () => {
+    if (levelElement && element.type !== GridElementType.EMPTY) {
+      return element.value !== levelElement.value || element.type !== levelElement.type;
+    }
+    return false;
+  };
+
   useEffect(() => {
     if (element.type === GridElementType.EMPTY && lastChangedValue.type !== element.type) {
       Animated.timing(opacity.current, {
@@ -80,6 +87,7 @@ export const TileElement = ({
               styles.levelContainer,
               showLevelElements ? styles.onTop : styles.onBottom,
               isElementLevelTheSameAsElement() && { backgroundColor: '#a2ff93' },
+              isElementLevelNotTheSameAsElement() && { backgroundColor: '#ff9393' },
             ]}
             >
               <Text style={styles.levelText}>{levelElement.value}</Text>

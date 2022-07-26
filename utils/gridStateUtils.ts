@@ -44,7 +44,7 @@ export const getFinalJokerElement = (grid: GridElementState[], e: GridElementSta
     .sort((v1, v2) =>
       compareTwoElements(v1, v2));
   const biggestNumber = blockedElement(e.x, e.y);
-  // TODO: Poprawne zliczanie bonusu
+
   sortedAdjacentElements.forEach(((value, index, array) => {
     const hasNextElement = array.length > index + 1;
     const isNextElementTheSame = hasNextElement && value.value === array[index + 1].value
