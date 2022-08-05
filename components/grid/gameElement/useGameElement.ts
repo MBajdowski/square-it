@@ -13,7 +13,7 @@ import {
   deepGridCopy,
   emptyElement,
   getRandomNewElement,
-  newValueElement,
+  newValueElement, storeNumber, UndoLeftKey,
 } from '../../../utils';
 
 interface Props {
@@ -32,6 +32,8 @@ export const useGameElement = ({
   const [undoAvailable, setUndoAvailable] = useState<boolean>(false);
   const [newElement, setNewElement] = useState<GridElementState>(getRandomNewElement());
   const [isComponentInitiated, setIsComponentInitiated] = useState(false);
+  const [undoLeft, setUndoLeft] = useState(5);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     initState();
@@ -44,8 +46,9 @@ export const useGameElement = ({
       storeObject(PrevScoreKey, prevScore);
       storeObject(NewElementKey, newElement);
       storeObject(UndoAvailableKey, undoAvailable);
+      storeNumber(UndoLeftKey, undoLeft);
     }
-  }, [prevGrid, prevNewElement, prevScore, newElement, undoAvailable, isComponentInitiated]);
+  }, [prevGrid, prevNewElement, prevScore, newElement, undoAvailable, isComponentInitiated, undoLeft]);
 
   const initState = async () => {
     const isGameInProgress = await retrieveObject(GameInProgressKey) ?? false;
@@ -56,11 +59,13 @@ export const useGameElement = ({
       const retrievedPrevScore = await retrieveObject(PrevScoreKey) ?? 0;
       const retrievedNewElement = await retrieveObject(NewElementKey) ?? newValueElement(-1, -1);
       const retrievedUndoAvailable = await retrieveObject(UndoAvailableKey) ?? false;
+      const retrievedUndoLeft = await retrieveObject(UndoLeftKey) ?? 5;
       setPrevNewElement(retrievedPrevNewElement);
       setPrevGrid(retrievedPrevGrid);
       setPrevScore(retrievedPrevScore);
       setNewElement(retrievedNewElement);
       setUndoAvailable(retrievedUndoAvailable);
+      setUndoLeft(retrievedUndoLeft);
     }
 
     setIsComponentInitiated(true);
@@ -68,10 +73,15 @@ export const useGameElement = ({
 
   const handleUndoPress = () => {
     if (undoAvailable) {
-      setUndoAvailable(false);
-      handleScoreChange(prevScore);
-      setNewElement(prevNewElement);
-      handleGridChange(prevGrid);
+      if (undoLeft > 0) {
+        setUndoAvailable(false);
+        handleScoreChange(prevScore);
+        setNewElement(prevNewElement);
+        handleGridChange(prevGrid);
+        setUndoLeft(undoLeft - 1);
+      } else {
+        setIsModalVisible(true);
+      }
     }
   };
 
@@ -93,12 +103,26 @@ export const useGameElement = ({
     setNewElement(updatedNewElement);
   };
 
+  const handleBackToGamePress = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleShowAdsPress = () => {
+    // TODO: Dodać reklamy tutaj
+    setUndoLeft(5);
+    setIsModalVisible(false);
+  };
+
   return {
     handleUndoPress,
     undoAvailable,
+    undoLeft,
     grid,
     newElement,
     handleGridPress,
     handleHolderElementChanged,
+    isModalVisible,
+    handleBackToGamePress,
+    handleShowAdsPress,
   };
 };

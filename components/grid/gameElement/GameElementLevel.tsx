@@ -8,6 +8,7 @@ import { ScoreElement } from '../ScoreElement';
 import { useGameElementLevel } from './useGameElementLevel';
 import { TileHolderElementLevel } from '../tileHolder/TileHolderElementLevel';
 import { EyeIcon, ResetIcon } from '../../icons';
+import { NoUndoLeftModal } from '../modals/NoUndoLeftModal';
 
 interface MainGridProps {
   grid: GridElementState[];
@@ -29,19 +30,28 @@ export const GameElementLevel = ({
     handleHolderElementChanged,
     isEyePressed,
     setIsEyePressed,
+    undoLeft,
+    isModalVisible,
+    handleShowAdsPress,
+    handleBackToGamePress,
   } = useGameElementLevel({
     grid, score, handleScoreChange, handleGridChange,
   });
 
   return (
     <View style={styles.topContainer}>
+      <NoUndoLeftModal
+        isVisible={isModalVisible}
+        onShowAdsPress={handleShowAdsPress}
+        onBackToGamePress={handleBackToGamePress}
+      />
       <View style={styles.topPaneContainer}>
         <TileHolderElementLevel
           newElement={newElement}
           onHolderElementChange={handleHolderElementChanged}
         />
         <ScoreElement score={score} />
-        <UndoElement undoAvailable={undoAvailable} onUndoElementPress={handleUndoPress} />
+        <UndoElement undoLeft={undoLeft} undoAvailable={undoAvailable} onUndoElementPress={handleUndoPress} />
       </View>
       <GridElement grid={grid} levelGrid={levelGrid} newElement={newElement} handleGridPress={handleGridPress} showLevelElements={isEyePressed} />
       <View style={styles.bottomPaneContainer}>

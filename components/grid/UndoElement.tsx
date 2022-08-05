@@ -1,4 +1,6 @@
-import { Pressable, StyleSheet } from 'react-native';
+import {
+  Pressable, StyleSheet, Text, View,
+} from 'react-native';
 import React from 'react';
 import { vw } from '../../utils';
 import { UndoIcon } from '../icons';
@@ -6,16 +8,31 @@ import { UndoIcon } from '../icons';
 interface Props {
   undoAvailable: boolean;
   onUndoElementPress: () => void;
+  undoLeft: number
 }
 
-export const UndoElement = ({ undoAvailable, onUndoElementPress }: Props) =>
+export const UndoElement = ({ undoAvailable, onUndoElementPress, undoLeft }: Props) =>
   (
-    <Pressable style={styles.undoContainer} onPress={onUndoElementPress}>
-      <UndoIcon fill={undoAvailable ? 'black' : 'grey'} />
-    </Pressable>
+    <View style={styles.mainContainer}>
+      <Text style={[styles.textElement, { color: undoAvailable ? 'black' : 'grey' }]}>{undoLeft}</Text>
+      <Pressable style={styles.undoContainer} onPress={onUndoElementPress}>
+        <UndoIcon fill={undoAvailable ? 'black' : 'grey'} />
+      </Pressable>
+    </View>
   );
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    display: 'flex',
+    position: 'relative',
+  },
+  textElement: {
+    position: 'absolute',
+    fontSize: vw(4),
+    fontWeight: 'bold',
+    right: 0,
+    bottom: -vw(1),
+  },
   undoContainer: {
     display: 'flex',
     alignItems: 'center',

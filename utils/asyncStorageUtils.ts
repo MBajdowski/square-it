@@ -11,6 +11,7 @@ export const PrevNewElementKey = '@prev_new_element';
 export const PrevScoreKey = '@prev_score';
 export const UndoAvailableKey = '@undo_available';
 export const CompletedLevelsKey = '@completed_levels';
+export const UndoLeftKey = '@undo_left';
 
 export const removeCurrentGameData = async () => {
   removeKey(GridKey);
@@ -22,6 +23,7 @@ export const removeCurrentGameData = async () => {
   removeKey(PrevNewElementKey);
   removeKey(PrevScoreKey);
   removeKey(UndoAvailableKey);
+  removeKey(UndoLeftKey);
 };
 
 export const removeKey = async (key: string) => {

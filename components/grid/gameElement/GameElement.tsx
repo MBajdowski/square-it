@@ -7,6 +7,7 @@ import { GridElement } from '../GridElement';
 import { TileHolderElement } from '../tileHolder/TileHolderElement';
 import { UndoElement } from '../UndoElement';
 import { ScoreElement } from '../ScoreElement';
+import { NoUndoLeftModal } from '../modals/NoUndoLeftModal';
 
 interface MainGridProps {
   grid: GridElementState[];
@@ -21,22 +22,31 @@ export const GameElement = ({
   const {
     handleUndoPress,
     undoAvailable,
+    undoLeft,
     newElement,
     handleGridPress,
     handleHolderElementChanged,
+    isModalVisible,
+    handleBackToGamePress,
+    handleShowAdsPress,
   } = useGameElement({
     grid, score, handleScoreChange, handleGridChange,
   });
 
   return (
     <View style={styles.topContainer}>
+      <NoUndoLeftModal
+        isVisible={isModalVisible}
+        onShowAdsPress={handleShowAdsPress}
+        onBackToGamePress={handleBackToGamePress}
+      />
       <View style={styles.topPaneContainer}>
         <TileHolderElement
           newElement={newElement}
           onHolderElementChange={handleHolderElementChanged}
         />
         <ScoreElement score={score} />
-        <UndoElement undoAvailable={undoAvailable} onUndoElementPress={handleUndoPress} />
+        <UndoElement undoAvailable={undoAvailable} undoLeft={undoLeft} onUndoElementPress={handleUndoPress} />
       </View>
       <GridElement grid={grid} levelGrid={[]} newElement={newElement} handleGridPress={handleGridPress} />
       <NewTileElement newElement={newElement} />

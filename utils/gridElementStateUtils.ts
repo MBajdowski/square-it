@@ -2,7 +2,7 @@ import { GridElementState, GridElementType } from './types';
 import { getRandomWithProbability, ProbabilityValue } from './mathUtils';
 
 const probabilities: ProbabilityValue[] = [
-  { value: 1, probability: 8 }, // 1
+  { value: 1, probability: 10 }, // 1
   { value: 2, probability: 5 }, // 2
   { value: 3, probability: 2 }, // 4
   { value: 4, probability: 2 }, // blocker

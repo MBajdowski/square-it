@@ -19,13 +19,20 @@ export const useGameElementLevel = ({
   const [undoAvailable, setUndoAvailable] = useState<boolean>(false);
   const [newElement, setNewElement] = useState<GridElementState>(getRandomNewElement());
   const [isEyePressed, setIsEyePressed] = useState<boolean>(false);
+  const [undoLeft, setUndoLeft] = useState(5);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleUndoPress = () => {
     if (undoAvailable) {
-      setUndoAvailable(false);
-      handleScoreChange(prevScore);
-      setNewElement(prevNewElement);
-      handleGridChange(prevGrid);
+      if (undoLeft > 0) {
+        setUndoAvailable(false);
+        handleScoreChange(prevScore);
+        setNewElement(prevNewElement);
+        handleGridChange(prevGrid);
+        setUndoLeft(undoLeft - 1);
+      } else {
+        setIsModalVisible(true);
+      }
     }
   };
 
@@ -47,6 +54,16 @@ export const useGameElementLevel = ({
     setNewElement(updatedNewElement);
   };
 
+  const handleBackToGamePress = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleShowAdsPress = () => {
+    // TODO: Dodać reklamy tutaj
+    setUndoLeft(5);
+    setIsModalVisible(false);
+  };
+
   return {
     handleUndoPress,
     undoAvailable,
@@ -56,5 +73,9 @@ export const useGameElementLevel = ({
     handleHolderElementChanged,
     isEyePressed,
     setIsEyePressed,
+    undoLeft,
+    isModalVisible,
+    handleShowAdsPress,
+    handleBackToGamePress,
   };
 };
