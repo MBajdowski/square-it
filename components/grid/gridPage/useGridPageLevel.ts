@@ -8,7 +8,7 @@ import {
   storeObject,
   GameLevel,
   GridElementState,
-  initGrid,
+  initGrid, retrieveNumber, LevelActionCounterKey, storeNumber, showInterstitialAd, ADS_ENABLED, hasInternetConnection,
 } from '../../../utils';
 
 interface Props {
@@ -56,7 +56,19 @@ export const useGridPageLevel = ({ navigation, route }: Props) => {
     setScore(newScore);
   };
 
-  const handleGameReset = () => {
+  const handleGameReset = async () => {
+    const currentLevelActionCount = await retrieveNumber(LevelActionCounterKey) ?? 0;
+    const isInternetReachable = await hasInternetConnection();
+    if (ADS_ENABLED && currentLevelActionCount > 5 && isInternetReachable) {
+      showInterstitialAd(async () =>
+        addLevelActionAndResetGame(0));
+    } else {
+      addLevelActionAndResetGame(currentLevelActionCount + 1);
+    }
+  };
+
+  const addLevelActionAndResetGame = async (newLevelActionCount : number) => {
+    storeNumber(LevelActionCounterKey, newLevelActionCount);
     setGameCounter(gameCounter + 1);
     setGrid(initGrid);
     setScore(0);

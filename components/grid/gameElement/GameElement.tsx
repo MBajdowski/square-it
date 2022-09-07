@@ -29,6 +29,7 @@ export const GameElement = ({
     isModalVisible,
     handleBackToGamePress,
     handleShowAdsPress,
+    isRewardAvailable,
   } = useGameElement({
     grid, score, handleScoreChange, handleGridChange,
   });
@@ -39,6 +40,7 @@ export const GameElement = ({
         isVisible={isModalVisible}
         onShowAdsPress={handleShowAdsPress}
         onBackToGamePress={handleBackToGamePress}
+        isRewardAvailable={isRewardAvailable}
       />
       <View style={styles.topPaneContainer}>
         <TileHolderElement

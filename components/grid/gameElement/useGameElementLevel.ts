@@ -1,6 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  GridElementState, GridElementType, deepGridCopy, emptyElement, getRandomNewElement,
+  GridElementState,
+  GridElementType,
+  deepGridCopy,
+  emptyElement,
+  getRandomNewElement,
+  ADS_ENABLED,
+  showRewardAd, loadRewardAd, loadInterstitialAd, hasInternetConnection,
 } from '../../../utils';
 
 interface Props {
@@ -21,10 +27,27 @@ export const useGameElementLevel = ({
   const [isEyePressed, setIsEyePressed] = useState<boolean>(false);
   const [undoLeft, setUndoLeft] = useState(5);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isRewardAvailable, setIsRewardAvailable] = useState(false);
+
+  useEffect(() => {
+    initState();
+  }, []);
+
+  useEffect(() => {
+    if (ADS_ENABLED) {
+      loadRewardAd();
+      loadInterstitialAd();
+    }
+  }, [prevGrid, isModalVisible]);
+
+  const initState = async () => {
+    const isInternetReachable = await hasInternetConnection();
+    setIsRewardAvailable(isInternetReachable);
+  };
 
   const handleUndoPress = () => {
     if (undoAvailable) {
-      if (undoLeft > 0) {
+      if (undoLeft > 0 || !ADS_ENABLED) {
         setUndoAvailable(false);
         handleScoreChange(prevScore);
         setNewElement(prevNewElement);
@@ -58,10 +81,10 @@ export const useGameElementLevel = ({
     setIsModalVisible(false);
   };
 
-  const handleShowAdsPress = () => {
-    // TODO: Dodać reklamy tutaj
-    setUndoLeft(5);
-    setIsModalVisible(false);
+  const handleShowAdsPress = async () => {
+    await showRewardAd(() =>
+      setUndoLeft(5), () =>
+      setIsModalVisible(false));
   };
 
   return {
@@ -77,5 +100,6 @@ export const useGameElementLevel = ({
     isModalVisible,
     handleShowAdsPress,
     handleBackToGamePress,
+    isRewardAvailable,
   };
 };

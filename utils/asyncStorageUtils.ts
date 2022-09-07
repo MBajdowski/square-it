@@ -12,6 +12,7 @@ export const PrevScoreKey = '@prev_score';
 export const UndoAvailableKey = '@undo_available';
 export const CompletedLevelsKey = '@completed_levels';
 export const UndoLeftKey = '@undo_left';
+export const LevelActionCounterKey = '@level_action_counter_key';
 
 export const removeCurrentGameData = async () => {
   removeKey(GridKey);

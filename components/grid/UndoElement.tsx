@@ -2,7 +2,7 @@ import {
   Pressable, StyleSheet, Text, View,
 } from 'react-native';
 import React from 'react';
-import { vw } from '../../utils';
+import { ADS_ENABLED, vw } from '../../utils';
 import { UndoIcon } from '../icons';
 
 interface Props {
@@ -14,7 +14,8 @@ interface Props {
 export const UndoElement = ({ undoAvailable, onUndoElementPress, undoLeft }: Props) =>
   (
     <View style={styles.mainContainer}>
-      <Text style={[styles.textElement, { color: undoAvailable ? 'black' : 'grey' }]}>{undoLeft}</Text>
+      {ADS_ENABLED
+        && (<Text style={[styles.textElement, { color: undoAvailable ? 'black' : 'grey' }]}>{undoLeft}</Text>)}
       <Pressable style={styles.undoContainer} onPress={onUndoElementPress}>
         <UndoIcon fill={undoAvailable ? 'black' : 'grey'} />
       </Pressable>

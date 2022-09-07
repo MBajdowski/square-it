@@ -14,6 +14,7 @@ import {
   emptyElement,
   getRandomNewElement,
   newValueElement, storeNumber, UndoLeftKey,
+  showRewardAd, ADS_ENABLED, initGrid, loadRewardAd, loadInterstitialAd, hasInternetConnection,
 } from '../../../utils';
 
 interface Props {
@@ -34,9 +35,12 @@ export const useGameElement = ({
   const [isComponentInitiated, setIsComponentInitiated] = useState(false);
   const [undoLeft, setUndoLeft] = useState(5);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isRewardAvailable, setIsRewardAvailable] = useState(false);
 
   useEffect(() => {
     initState();
+    return () =>
+      clearState();
   }, []);
 
   useEffect(() => {
@@ -47,11 +51,19 @@ export const useGameElement = ({
       storeObject(NewElementKey, newElement);
       storeObject(UndoAvailableKey, undoAvailable);
       storeNumber(UndoLeftKey, undoLeft);
+
+      if (ADS_ENABLED) {
+        loadRewardAd();
+        loadInterstitialAd();
+      }
+
+      updateRewardAvailability();
     }
-  }, [prevGrid, prevNewElement, prevScore, newElement, undoAvailable, isComponentInitiated, undoLeft]);
+  }, [prevGrid, prevNewElement, prevScore, newElement, undoAvailable, isComponentInitiated, undoLeft, isModalVisible]);
 
   const initState = async () => {
     const isGameInProgress = await retrieveObject(GameInProgressKey) ?? false;
+    updateRewardAvailability();
 
     if (isGameInProgress) {
       const retrievedPrevNewElement = await retrieveObject(PrevNewElementKey) ?? newValueElement(-1, -1);
@@ -71,9 +83,25 @@ export const useGameElement = ({
     setIsComponentInitiated(true);
   };
 
+  const updateRewardAvailability = async () => {
+    const isInternetReachable = await hasInternetConnection();
+    setIsRewardAvailable(isInternetReachable);
+  };
+
+  const clearState = () => {
+    setPrevGrid(initGrid());
+    setPrevNewElement(emptyElement(-1, -1));
+    setPrevScore(0);
+    setUndoAvailable(false);
+    setNewElement(getRandomNewElement());
+    setUndoLeft(5);
+    setIsComponentInitiated(false);
+    setIsRewardAvailable(false);
+  };
+
   const handleUndoPress = () => {
     if (undoAvailable) {
-      if (undoLeft > 0) {
+      if (undoLeft > 0 || !ADS_ENABLED) {
         setUndoAvailable(false);
         handleScoreChange(prevScore);
         setNewElement(prevNewElement);
@@ -107,10 +135,10 @@ export const useGameElement = ({
     setIsModalVisible(false);
   };
 
-  const handleShowAdsPress = () => {
-    // TODO: Dodać reklamy tutaj
-    setUndoLeft(5);
-    setIsModalVisible(false);
+  const handleShowAdsPress = async () => {
+    await showRewardAd(() =>
+      setUndoLeft(5), () =>
+      setIsModalVisible(false));
   };
 
   return {
@@ -124,5 +152,6 @@ export const useGameElement = ({
     isModalVisible,
     handleBackToGamePress,
     handleShowAdsPress,
+    isRewardAvailable,
   };
 };

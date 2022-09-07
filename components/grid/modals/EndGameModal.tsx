@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {
   Modal, StyleSheet, Text, View,
 } from 'react-native';
-import { GridElementState, GridElementType, vw } from '../../../utils';
+import {
+  ADS_ENABLED,
+  GridElementState, GridElementType, hasInternetConnection, showInterstitialAd, vw,
+} from '../../../utils';
 import { ButtonElement } from '../../common/ButtonElement';
 
 interface MyProps {
@@ -17,9 +20,19 @@ export const EndGameModal = ({ grid, onBackToMenu, onPlayAgain }: MyProps) => {
   useEffect(() => {
     if (!grid.find((e) =>
       e.type === GridElementType.EMPTY)) {
-      setIsVisible(true);
+      handleEndGame();
     }
   }, [grid]);
+
+  const handleEndGame = async () => {
+    const isInternetReachable = await hasInternetConnection();
+    if (ADS_ENABLED && isInternetReachable) {
+      showInterstitialAd(() =>
+        setIsVisible(true));
+    } else {
+      setIsVisible(true);
+    }
+  };
 
   const handleModalCloseNavigateToMenu = () => {
     setIsVisible(false);

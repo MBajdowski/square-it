@@ -44,5 +44,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: vw(45),
     borderRadius: vw(5),
+    margin: vw(1),
   },
 });

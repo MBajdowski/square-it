@@ -80,6 +80,7 @@ export const BasicInstructionsPage = ({ navigation }: Props) =>
             images={[require('../../assets/instruction/_multiCombo.png'),
               require('../../assets/instruction/multiComboMerged.png')]}
           />
+          <View style={styles.lastInstructionComponent} />
         </ScrollView>
       </View>
     </View>
@@ -111,5 +112,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(229, 219, 206, 0.5)',
     borderTopLeftRadius: vw(5),
     borderTopRightRadius: vw(5),
+  },
+  lastInstructionComponent: {
+    paddingBottom: vw(5),
   },
 });

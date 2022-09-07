@@ -34,6 +34,7 @@ export const GameElementLevel = ({
     isModalVisible,
     handleShowAdsPress,
     handleBackToGamePress,
+    isRewardAvailable,
   } = useGameElementLevel({
     grid, score, handleScoreChange, handleGridChange,
   });
@@ -44,6 +45,7 @@ export const GameElementLevel = ({
         isVisible={isModalVisible}
         onShowAdsPress={handleShowAdsPress}
         onBackToGamePress={handleBackToGamePress}
+        isRewardAvailable={isRewardAvailable}
       />
       <View style={styles.topPaneContainer}>
         <TileHolderElementLevel

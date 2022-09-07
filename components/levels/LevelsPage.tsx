@@ -9,7 +9,14 @@ import { BackgroundComponent } from '../common/BackgroundComponent';
 import { CheckIcon } from '../icons';
 import data from './levels.json';
 import {
-  CompletedLevelsKey, retrieveObject, GameLevel, newValueElementWithValue, vw,
+  CompletedLevelsKey,
+  retrieveObject,
+  GameLevel,
+  newValueElementWithValue,
+  vw,
+  retrieveNumber,
+  LevelActionCounterKey,
+  storeNumber, showInterstitialAd, ADS_ENABLED, hasInternetConnection,
 } from '../../utils';
 import { BackButtonElement } from '../common/BackButtonElement';
 
@@ -35,6 +42,23 @@ export const LevelsPage = ({ navigation }: Props) => {
     setCompletedLevels(retrievedCompletedLevels);
   };
 
+  const onLevelClick = async (id: number) => {
+    const currentLevelActionCount = await retrieveNumber(LevelActionCounterKey) ?? 0;
+    const isInternetReachable = await hasInternetConnection();
+
+    if (ADS_ENABLED && currentLevelActionCount > 5 && isInternetReachable) {
+      showInterstitialAd(() =>
+        addLevelActionAndNavigate(id, 0));
+    } else {
+      addLevelActionAndNavigate(id, currentLevelActionCount + 1);
+    }
+  };
+
+  const addLevelActionAndNavigate = async (id: number, newLevelActionCount: number) => {
+    storeNumber(LevelActionCounterKey, newLevelActionCount);
+    navigation.navigate('GridPageLevel', { levelId: id });
+  };
+
   return (
     <View style={styles.mainContainer}>
       <BackgroundComponent img={require('../../assets/bg.png')} />
@@ -53,15 +77,13 @@ export const LevelsPage = ({ navigation }: Props) => {
                       <TileElement
                         element={newValueElementWithValue(-1, -1, m.id)}
                         linearColor
-                        handlePress={() => {
-                          navigation.navigate('GridPageLevel', { levelId: m.id });
-                        }}
+                        handlePress={() =>
+                          onLevelClick(m.id)}
                       />
                       {completedLevels.includes(m.id) && (
                         <Pressable
-                          onPress={() => {
-                            navigation.navigate('GridPageLevel', { levelId: m.id });
-                          }}
+                          onPress={() =>
+                            onLevelClick(m.id)}
                           style={styles.tickContainer}
                         >
                           <CheckIcon fill="#00aa13" />

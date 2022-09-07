@@ -13,6 +13,8 @@ export const useTileHolderElement = ({ newElement, onHolderElementChange }: Hold
 
   useEffect(() => {
     initHolderElement();
+    return () =>
+      setHolderElement(emptyElement(-1, -1));
   }, []);
 
   useEffect(() => {

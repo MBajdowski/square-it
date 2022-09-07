@@ -9,9 +9,12 @@ interface Props {
   isVisible: boolean;
   onShowAdsPress: () => void;
   onBackToGamePress: () => void;
+  isRewardAvailable: boolean;
 }
 
-export const NoUndoLeftModal = ({ isVisible, onShowAdsPress, onBackToGamePress }: Props) =>
+export const NoUndoLeftModal = ({
+  isVisible, onShowAdsPress, onBackToGamePress, isRewardAvailable,
+}: Props) =>
   (
     <Modal
       animationType="fade"
@@ -23,7 +26,10 @@ export const NoUndoLeftModal = ({ isVisible, onShowAdsPress, onBackToGamePress }
         <View style={styles.modalView}>
           <Text style={styles.titleText}>No more undos left :(</Text>
           <Text style={styles.descriptionText}>Watch some ads to get extra 5 undos!</Text>
-          <ButtonElement text="Get more!" onPress={onShowAdsPress} />
+          {!isRewardAvailable && (<Text style={styles.noRewardAvailableText}>Enable WiFi to load ads</Text>)}
+          {isRewardAvailable && (<ButtonElement text="Get more!" onPress={onShowAdsPress} />)}
+          {!isRewardAvailable
+            && (<ButtonElement text="Get more!" onPress={() => {}} buttonStyle={styles.greyButton} />)}
           <ButtonElement text="Back to game" onPress={onBackToGamePress} />
         </View>
       </View>
@@ -60,5 +66,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: vw(6),
     fontSize: vw(5),
+  },
+  noRewardAvailableText: {
+    textAlign: 'center',
+    padding: vw(6),
+    fontSize: vw(4),
+    color: 'darkgrey',
+  },
+  greyButton: {
+    backgroundColor: 'grey',
   },
 });
